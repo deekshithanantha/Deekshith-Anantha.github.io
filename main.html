@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deekshith Anantha | Computer Engineering Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a192f;
+            color: #ccd6f6;
+        }
+        .accent-color {
+            color: #64ffda;
+        }
+        .section-heading {
+            color: #ccd6f6;
+        }
+        .card {
+            background-color: #112240;
+            border: 1px solid #1d2d50;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .tag {
+            background-color: #163057;
+            color: #64ffda;
+        }
+    </style>
+</head>
+<body class="leading-normal tracking-normal">
+
+    <!-- Header & Navigation -->
+    <header class="bg-opacity-90 backdrop-blur-md sticky top-0 z-50 shadow-lg" style="background-color: #0a192f;">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a href="#" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+                <span class="ml-3 text-2xl font-bold">Deekshith Anantha</span>
+            </a>
+            <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                <a href="#about" class="mr-5 hover:text-white transition-colors duration-300">About</a>
+                <a href="#experience" class="mr-5 hover:text-white transition-colors duration-300">Experience</a>
+                <a href="#projects" class="mr-5 hover:text-white transition-colors duration-300">Projects</a>
+                <a href="#skills" class="mr-5 hover:text-white transition-colors duration-300">Skills</a>
+                <a href="#contact" class="inline-flex items-center bg-transparent border border-cyan-400 text-cyan-400 py-1 px-3 focus:outline-none hover:bg-cyan-400 hover:text-gray-900 rounded-md text-base mt-4 md:mt-0 transition-colors duration-300">
+                    Contact
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 md:px-12 py-12">
+
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-[70vh] flex items-center">
+            <div class="max-w-3xl">
+                <h1 class="text-lg md:text-xl accent-color font-mono mb-4">Hi, my name is</h1>
+                <h2 class="text-4xl md:text-7xl font-bold text-slate-200">Deekshith Anantha.</h2>
+                <h3 class="text-4xl md:text-6xl font-bold text-slate-400 mt-2">I build things for the web and the sky.</h3>
+                <p class="mt-6 max-w-xl text-lg text-slate-400">
+                    I'm a Computer Engineering graduate student at North Carolina State University with a passion for avionics, software development, and machine learning. I have hands-on experience in creating robust, efficient, and scalable software solutions.
+                </p>
+                <div class="mt-8 flex space-x-4">
+                    <a href="mailto:deekshithanantha@yahoo.com" class="accent-color border border-cyan-400 hover:bg-cyan-400 hover:text-gray-900 font-mono py-3 px-6 rounded-md transition-colors duration-300">Get In Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-20">
+            <h2 class="text-3xl font-bold mb-8 relative inline-block">
+                <span class="accent-color font-mono text-2xl mr-2">01.</span>
+                <span class="section-heading">About Me</span>
+                <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
+                <div class="md:col-span-3 text-slate-400 text-lg space-y-4">
+                    <p>
+                        Hello! I'm Deekshith, a computer engineer driven by the challenge of solving complex problems. My journey began with a Bachelor's in Electronics and Telecommunication, which gave me a solid foundation in hardware-software interaction. This led me to an exciting role in the avionics industry, where I developed and optimized critical flight warning systems for new aircraft.
+                    </p>
+                    <p>
+                        My experience involved everything from low-level software integration and requirement-based testing on real hardware to building high-level CI/CD pipelines and automation scripts that significantly boosted development efficiency. Now, as a Master's student at <span class="accent-color">NC State University</span>, I'm deepening my expertise in machine learning, distributed systems, and cloud computing.
+                    </p>
+                    <p>
+                        Outside of engineering, I have a creative side. I've led a theater team, directed street plays on important social issues, and coordinated large-scale cultural events. These experiences have honed my leadership, teamwork, and communication skills.
+                    </p>
+                </div>
+                <div class="md:col-span-2 flex justify-center">
+                    <div class="w-64 h-64 rounded-lg bg-slate-800 border-2 border-cyan-400 relative group">
+                         <!-- Placeholder for a photo. You can replace the SVG with an <img> tag -->
+                        <div class="absolute inset-0 bg-cyan-400 mix-blend-screen opacity-50 group-hover:opacity-0 transition-opacity duration-300 rounded-md"></div>
+                        <div class="p-4 flex items-center justify-center h-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="#ccd6f6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20">
+            <h2 class="text-3xl font-bold mb-12 relative inline-block">
+                <span class="accent-color font-mono text-2xl mr-2">02.</span>
+                <span class="section-heading">Where I've Worked</span>
+                <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
+            </h2>
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-500 before:to-transparent">
+                <!-- Item 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-500 bg-slate-800 group-hover:border-cyan-400 text-slate-500 group-hover:text-cyan-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] card p-6 rounded-lg shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-xl text-slate-200">Avionics Software Developer</h3>
+                            <time class="font-mono text-sm text-slate-400">2023 – 2025</time>
+                        </div>
+                        <p class="text-md accent-color mt-1">Internship</p>
+                        <ul class="mt-4 list-disc list-inside text-slate-400 space-y-2">
+                            <li>Developed and integrated software components for flight warning systems in new aircraft.</li>
+                            <li>Optimized cockpit simulations using Python, boosting computational efficiency by 15%.</li>
+                            <li>Engineered a CI/CD pipeline with Jenkins, cutting build and deployment time by 50%.</li>
+                            <li>Automated component migration with Python & Shell, reducing manual effort by 80%.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-500 bg-slate-800 group-hover:border-cyan-400 text-slate-500 group-hover:text-cyan-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all duration-300">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] card p-6 rounded-lg shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-xl text-slate-200">Engineering Intern</h3>
+                            <time class="font-mono text-sm text-slate-400">Mar – Jul 2023</time>
+                        </div>
+                        <p class="text-md accent-color mt-1">Internship</p>
+                        <ul class="mt-4 list-disc list-inside text-slate-400 space-y-2">
+                            <li>Developed a DO-178C compliant automation tool using Python for change management.</li>
+                            <li>Gained hands-on experience in safety-critical software development standards.</li>
+                            <li>Implemented workflows that significantly improved team productivity.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <h2 class="text-3xl font-bold mb-8 relative inline-block">
+                <span class="accent-color font-mono text-2xl mr-2">03.</span>
+                <span class="section-heading">Things I've Built</span>
+                <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="card p-6 rounded-lg flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.08V8l-6-4-6 4v3.08"></path><path d="M17.88 21.12V18a6 6 0 0 0-12 0v3.12"></path><path d="M12 22.68V18"></path></svg>
+                        <!-- Add GitHub link when available -->
+                        <!-- <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a> -->
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-200 mb-2">Adaptive Modulation Detection with ML</h3>
+                    <p class="text-slate-400 mb-4 flex-grow">
+                        Successfully applied machine learning to identify modulation techniques in signals, analyzing performance based on SNR, throughput, and other factors.
+                    </p>
+                    <div class="flex flex-wrap font-mono text-sm mt-auto">
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Python</span>
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Machine Learning</span>
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Signal Processing</span>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="card p-6 rounded-lg flex flex-col">
+                     <div class="flex justify-between items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                        <!-- <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a> -->
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-200 mb-2">Vulnerable GitHub Workflow Detection</h3>
+                    <p class="text-slate-400 mb-4 flex-grow">
+                        Utilized Machine Learning to detect and identify potential security vulnerabilities in GitHub Actions workflows by extracting and analyzing relevant features.
+                    </p>
+                    <div class="flex flex-wrap font-mono text-sm mt-auto">
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Python</span>
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">ML</span>
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Security</span>
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">GitHub Actions</span>
+                    </div>
+                </div>
+                <!-- Project 3 (Placeholder) -->
+                <div class="card p-6 rounded-lg flex flex-col opacity-60">
+                     <div class="flex justify-between items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-200 mb-2">Your Next Project</h3>
+                    <p class="text-slate-400 mb-4 flex-grow">
+                        This space is ready for the next amazing project you'll build during your Master's program at NC State.
+                    </p>
+                    <div class="flex flex-wrap font-mono text-sm mt-auto">
+                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 text-center">
+            <h2 class="text-3xl font-bold mb-8 relative inline-block">
+                <span class="accent-color font-mono text-2xl mr-2">04.</span>
+                <span class="section-heading">My Toolkit</span>
+                 <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
+            </h2>
+            <div class="max-w-4xl mx-auto text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold accent-color mb-3">Languages & Databases</h3>
+                        <p class="text-slate-400">C, C++, Java, Python, JavaScript, SQL, MongoDB</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold accent-color mb-3">DevOps & Cloud</h3>
+                        <p class="text-slate-400">Docker, Kubernetes, Jenkins, CI/CD, GCP, Git/GitHub</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold accent-color mb-3">Web & Frameworks</h3>
+                        <p class="text-slate-400">ReactJS, Redux, Node.js (implied by JS)</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold accent-color mb-3">Machine Learning & Data</h3>
+                        <p class="text-slate-400">Neural Networks, NLP, Generative AI, Hadoop, Apache Spark, Kafka</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-transparent text-center py-16 px-6">
+        <h2 class="text-4xl font-bold accent-color mb-4">Get In Touch</h2>
+        <p class="max-w-xl mx-auto text-slate-400 mb-8">
+            I'm currently seeking new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll do my best to get back to you!
+        </p>
+        <div class="flex justify-center space-x-6 mb-8">
+            <a href="mailto:deekshithanantha@yahoo.com" class="text-slate-400 hover:accent-color transition-colors duration-300" aria-label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </a>
+            <!-- Replace with your actual LinkedIn URL -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors duration-300" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <!-- Replace with your actual GitHub URL -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors duration-300" aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+        </div>
+        <p class="text-slate-500 text-sm">
+            Designed & Built by Deekshith Anantha
+        </p>
+    </footer>
+
+</body>
+</html>
