@@ -25,6 +25,8 @@
             font-family: 'Outfit', sans-serif;
             background-color: #f8fafc;
             color: #1e293b;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, .font-display {
@@ -56,22 +58,35 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        /* Staggered Fade In */
+        /* Standard Fade In */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeIn 0.6s ease-out forwards;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Dynamic Gradients for Placeholders */
-        .bg-gradient-1 { background: linear-gradient(135deg, #FF6B6B 0%, #556270 100%); } /* Warm/Tech */
-        .bg-gradient-2 { background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); } /* Green/Blue */
-        .bg-gradient-3 { background: linear-gradient(135deg, #e96443 0%, #904e95 100%); } /* Orange/Purple */
-        .bg-gradient-4 { background: linear-gradient(135deg, #000428 0%, #004e92 100%); } /* Deep Space */
+        /* Timeline Specific Styles */
+        .timeline-stop {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+        .timeline-stop.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Car Shadow Pulse */
+        .car-glow {
+            box-shadow: 0 0 25px rgba(204, 0, 0, 0.6);
+            filter: drop-shadow(0 0 10px rgba(204,0,0,0.4));
+        }
+
+        .bg-gradient-4 { background: linear-gradient(135deg, #000428 0%, #004e92 100%); } 
         
         .modal-open { overflow: hidden; }
     </style>
@@ -92,82 +107,292 @@
 <body class="antialiased selection:bg-ncred selection:text-white">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="text-2xl font-bold font-display tracking-tighter">DA.</div>
+                <div class="text-2xl font-bold font-display tracking-tighter hover:text-ncred cursor-pointer transition-colors">DA.</div>
                 <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-500">
-                    <a href="#about" class="hover:text-ncred transition-colors">About</a>
-                    <a href="#gallery" class="hover:text-ncred transition-colors">Work Gallery</a>
-                    <a href="#skills" class="hover:text-ncred transition-colors">Skills</a>
-                    <a href="#contact" class="hover:text-ncred transition-colors">Contact</a>
+                    <a href="#journey" class="hover:text-ncred transition-colors relative group">
+                        Journey
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-ncred transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#gallery" class="hover:text-ncred transition-colors relative group">
+                        Work
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-ncred transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#skills" class="hover:text-ncred transition-colors relative group">
+                        Skills
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-ncred transition-all group-hover:w-full"></span>
+                    </a>
                 </div>
-                <a href="#" class="px-5 py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-ncred transition-colors">Resume</a>
+                <a href="#" class="px-5 py-2 bg-gray-900 text-white rounded-full text-sm font-bold hover:bg-ncred hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300">Resume</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-ncred/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gray-50/30">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-red-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 animate-pulse" style="animation-duration: 4s;"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 animate-pulse" style="animation-duration: 6s;"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 
-                <div class="text-center md:text-left order-2 md:order-1">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-ncred text-xs font-bold uppercase tracking-wider mb-6 fade-in" style="animation-delay: 0.1s">
-                        <span class="w-2 h-2 rounded-full bg-ncred animate-pulse"></span>
-                        Seeking 2026 Internships
+                <div class="text-center lg:text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-red-100 text-ncred text-xs font-bold uppercase tracking-wider mb-8 fade-in shadow-sm hover:shadow-md transition-shadow cursor-default">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-ncred"></span>
+                        </span>
+                        Seeking Summer 2026 Internships
                     </div>
                     
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight fade-in" style="animation-delay: 0.2s">
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight fade-in text-slate-900 tracking-tight">
                         Hello, I'm <br>
-                        <span class="animate-text">Deekshith Anantha</span>
+                        <span class="animate-text">Deekshith.</span>
                     </h1>
                     
-                    <p class="text-lg md:text-xl text-gray-600 mb-10 font-light fade-in" style="animation-delay: 0.3s">
-                        Computer Engineering Graduate Student at <span class="font-bold text-ncred">NC State</span>. <br>
-                        Former Embedded Software Engineer at <span class="font-bold text-blue-900">Airbus</span>.
+                    <p class="text-lg md:text-xl text-slate-600 mb-10 font-light fade-in max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Computer Engineering Graduate Student at <span class="font-bold text-ncred border-b-2 border-ncred/20">NC State</span>. <br>
+                        Former Embedded Software Engineer at <span class="font-bold text-blue-900 border-b-2 border-blue-900/20">Airbus</span>.
                     </p>
 
-                    <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start fade-in" style="animation-delay: 0.4s">
-                        <a href="#gallery" class="px-8 py-4 bg-black text-white rounded-full font-bold hover:bg-gray-800 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
-                            <i data-lucide="grid"></i> View Projects
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start fade-in">
+                        <a href="#gallery" class="px-8 py-4 bg-gray-900 text-white rounded-full font-bold hover:bg-black transition-all transform hover:-translate-y-1 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 group">
+                            <i data-lucide="grid" class="group-hover:text-gray-300 transition-colors"></i> View Projects
                         </a>
-                        <a href="mailto:ananthadeekshith@gmail.com" class="px-8 py-4 bg-white text-black border-2 border-gray-100 rounded-full font-bold hover:border-ncred hover:text-ncred transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                        <a href="mailto:ananthadeekshith@gmail.com" class="px-8 py-4 bg-white text-black border border-gray-200 rounded-full font-bold hover:border-ncred hover:text-ncred transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
                             <i data-lucide="mail"></i> Get in Touch
                         </a>
                     </div>
                 </div>
 
-                <div class="order-1 md:order-2 flex justify-center fade-in" style="animation-delay: 0.2s">
-                    <div class="relative w-72 h-72 md:w-96 md:h-96 group">
+                <div class="order-1 lg:order-2 fade-in relative">
+                    <div class="relative w-full aspect-[4/3] max-w-2xl mx-auto rounded-[2rem] overflow-hidden shadow-2xl bg-white group border-4 border-white/50 backdrop-blur-sm">
                         
-                        <div class="absolute inset-0 border-2 border-dashed border-gray-300 rounded-full animate-[spin_10s_linear_infinite] z-0"></div>
-                        
-                        <div id="hero-slideshow" class="absolute inset-4 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-gray-100 z-10">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800" 
-                                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 ease-in-out" 
-                                alt="Profile 1">
-                            
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800" 
-                                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 ease-in-out" 
-                                alt="Profile 2">
-                            
-                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800" 
-                                class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 ease-in-out" 
-                                alt="Profile 3">
+                        <div id="hero-slideshow" class="absolute inset-0">
+                            <!-- Slides -->
+                            <div class="slide absolute inset-0 transition-all duration-1000 ease-in-out opacity-100 z-10 scale-100">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <h3 class="text-2xl font-bold mb-1 font-display">NC State Campus</h3>
+                                    <p class="text-gray-300 text-sm">Working on Embedded Systems Research.</p>
+                                </div>
+                            </div>
+                            <div class="slide absolute inset-0 transition-all duration-1000 ease-in-out opacity-0 z-0 scale-105">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <h3 class="text-2xl font-bold mb-1 font-display">Airbus Hangar</h3>
+                                    <p class="text-gray-300 text-sm">Inspecting A320 Avionics Hardware.</p>
+                                </div>
+                            </div>
+                            <div class="slide absolute inset-0 transition-all duration-1000 ease-in-out opacity-0 z-0 scale-105">
+                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <h3 class="text-2xl font-bold mb-1 font-display">Hackathon 2024</h3>
+                                    <p class="text-gray-300 text-sm">Winning team for the RISC-V Challenge.</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <button id="prev-slide" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-20 bg-white text-black p-3 rounded-full shadow-lg hover:text-ncred transition-all opacity-0 group-hover:opacity-100 transform hover:scale-110 cursor-pointer">
-                            <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                        </button>
-                        
-                        <button id="next-slide" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-20 bg-white text-black p-3 rounded-full shadow-lg hover:text-ncred transition-all opacity-0 group-hover:opacity-100 transform hover:scale-110 cursor-pointer">
-                            <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                        </button>
+                        <!-- Controls -->
+                        <div class="absolute bottom-8 right-8 z-30 flex gap-3">
+                            <button id="prev-slide" class="w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/30 backdrop-blur-md text-white rounded-full transition-all border border-white/20">
+                                <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                            </button>
+                            <button id="next-slide" class="w-12 h-12 flex items-center justify-center bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition-all transform hover:scale-105">
+                                <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                            </button>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAR JOURNEY SECTION -->
+    <section id="journey" class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto relative">
+            
+            <!-- SECTION HEADER -->
+            <div class="text-center pt-24 pb-8 relative z-20">
+                <span class="text-ncred font-bold tracking-widest uppercase text-sm mb-2 block">My Professional Road Map</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900">The Journey</h2>
+            </div>
+
+            <!-- ROAD CONTAINER -->
+            <!-- Height adjusted for cleaner scrolling -->
+            <div id="road-container" class="relative w-full h-[2200px]">
+                
+                <!-- SVG ROAD LAYER -->
+                <svg class="absolute top-0 left-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none">
+                    <!-- The Path: Dynamically generated by JS -->
+                    <path id="road-path" 
+                          d=""
+                          fill="none" stroke="#e2e8f0" stroke-width="40" stroke-dasharray="20, 20" />
+                    <!-- Center Line -->
+                    <path id="road-center-line"
+                          d=""
+                          fill="none" stroke="#cbd5e1" stroke-width="2" />
+                </svg>
+
+                <!-- THE CAR -->
+                <!-- Important: z-50 to ensure it stays above cards if overlap happens -->
+                <div id="car" class="absolute top-0 left-0 w-12 h-20 z-50 transition-transform duration-100 ease-out origin-center car-glow rounded-xl">
+                    <!-- Simple CSS/SVG Car (Rotated 180 to face forward naturally) -->
+                    <svg viewBox="0 0 50 100" class="w-full h-full drop-shadow-2xl">
+                        <rect x="10" y="10" width="30" height="80" rx="5" fill="#CC0000" />
+                        <rect x="12" y="20" width="26" height="15" fill="#333" rx="2" /> <!-- Rear window -->
+                        <rect x="12" y="50" width="26" height="15" fill="#333" rx="2" /> <!-- Windshield -->
+                        <rect x="5" y="15" width="5" height="15" fill="#000" /> <!-- Wheels -->
+                        <rect x="40" y="15" width="5" height="15" fill="#000" />
+                        <rect x="5" y="70" width="5" height="15" fill="#000" />
+                        <rect x="40" y="70" width="5" height="15" fill="#000" />
+                        <!-- Headlights -->
+                        <circle cx="15" cy="85" r="3" fill="#fbbf24" />
+                        <circle cx="35" cy="85" r="3" fill="#fbbf24" />
+                    </svg>
+                </div>
+
+                <!-- STOP 1: RV COLLEGE (Start - Top) - LEFT Layout -->
+                <div class="timeline-stop absolute w-full" style="top: 100px;">
+                    <div class="flex flex-col md:flex-row items-center justify-between px-4 md:px-20 w-full">
+                        <!-- Left: Overview & Logo -->
+                        <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
+                            <!-- Flexbox here ensures logo never overlaps text -->
+                            <div class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 relative group hover:-translate-y-1 transition-all flex flex-row-reverse items-center gap-4">
+                                <div class="w-16 h-16 bg-gray-50 rounded-full border border-gray-200 p-2 flex-shrink-0 flex items-center justify-center">
+                                    <img src="https://ui-avatars.com/api/?name=RV&background=333&color=fff&font-size=0.4" alt="RV Logo" class="w-full h-full object-contain rounded-full">
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Aug 2019 - Jun 2023</span>
+                                    <h3 class="text-xl font-bold text-gray-900 leading-tight">RV College of Engineering</h3>
+                                    <p class="text-ncred font-semibold text-sm">Undergraduate Studies</p>
+                                    <p class="text-gray-600 text-xs">Bangalore, India</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Middle Gap (Space for road) -->
+                        <div class="w-full md:w-2/12 h-10"></div>
+
+                        <!-- Right: Detailed Description -->
+                        <div class="w-full md:w-5/12 pl-8 md:pl-16 relative z-10">
+                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Bachelor of Engineering</h4>
+                                <p>Major in Electronics and Telecommunication. Built a strong foundation in embedded systems, digital signal processing, and computer architecture.</p>
+                                <ul class="list-disc pl-4 mt-2 space-y-1 text-xs">
+                                    <li>GPA: 7.9/10</li>
+                                    <li>Focus on Firmware & Hardware Integration</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STOP 2: AIRBUS INTERN (Middle) - RIGHT Layout -->
+                <div class="timeline-stop absolute w-full" style="top: 600px;">
+                    <div class="flex flex-col md:flex-row-reverse items-center justify-between px-4 md:px-20 w-full">
+                        <!-- Right: Overview & Logo -->
+                        <div class="w-full md:w-5/12 text-left pl-8 md:pl-16 relative z-10">
+                            <div class="bg-white p-6 rounded-2xl shadow-xl border border-blue-100 relative group hover:-translate-y-1 transition-all flex items-center gap-4">
+                                <div class="w-16 h-16 bg-blue-50 rounded-full border border-blue-200 p-2 flex-shrink-0 flex items-center justify-center">
+                                    <img src="https://ui-avatars.com/api/?name=AB&background=00205b&color=fff&font-size=0.4" alt="Airbus Logo" class="w-full h-full object-contain rounded-full">
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-xs font-bold text-blue-400 uppercase tracking-wider block mb-1">Mar 2023 - Jul 2023</span>
+                                    <h3 class="text-xl font-bold text-gray-900 leading-tight">Airbus</h3>
+                                    <p class="text-blue-600 font-semibold text-sm">Engineering Intern</p>
+                                    <p class="text-gray-500 text-xs">Bangalore, India</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-2/12 h-10"></div>
+
+                        <!-- Left: Description -->
+                        <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
+                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Automation & Migration</h4>
+                                <p>Automated migration of 34 software components to the latest toolchain using Python and Shell scripting, reducing migration time by 80%.</p>
+                                <p class="mt-2 text-xs">Designed automation scripts to streamline firmware configuration under DO-178C guidelines.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STOP 3: AIRBUS FULL TIME (Middle) - LEFT Layout -->
+                <div class="timeline-stop absolute w-full" style="top: 1100px;">
+                    <div class="flex flex-col md:flex-row items-center justify-between px-4 md:px-20 w-full">
+                        <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
+                            <div class="bg-white p-6 rounded-2xl shadow-xl border border-blue-100 relative group hover:-translate-y-1 transition-all flex flex-row-reverse items-center gap-4">
+                                <div class="w-16 h-16 bg-blue-50 rounded-full border border-blue-200 p-2 flex-shrink-0 flex items-center justify-center">
+                                    <img src="https://ui-avatars.com/api/?name=AB&background=00205b&color=fff&font-size=0.4" alt="Airbus Logo" class="w-full h-full object-contain rounded-full">
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-xs font-bold text-blue-800 uppercase tracking-wider block mb-1">Jul 2023 - Jul 2025</span>
+                                    <h3 class="text-xl font-bold text-gray-900 leading-tight">Airbus</h3>
+                                    <p class="text-blue-900 font-semibold text-sm">Embedded Software Engineer</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-2/12 h-10"></div>
+
+                        <div class="w-full md:w-5/12 pl-8 md:pl-16 relative z-10">
+                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Flight Warning Systems</h4>
+                                <p>Developed and optimized firmware for the A320 Flight Warning Computer using C/C++ and RTOS.</p>
+                                <ul class="list-disc pl-4 mt-2 space-y-1 text-xs">
+                                    <li>Hardware debugging with Lauterbach Trace32.</li>
+                                    <li>Improved CI/CD efficiency by 50% with Jenkins.</li>
+                                    <li>Collaborated with cross-functional hardware teams.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STOP 4: NC STATE (End - Bottom) - RIGHT Layout -->
+                <div class="timeline-stop absolute w-full" style="top: 1600px;">
+                    <div class="flex flex-col md:flex-row-reverse items-center justify-between px-4 md:px-20 w-full">
+                        <div class="w-full md:w-5/12 text-left pl-8 md:pl-16 relative z-10">
+                            <div class="bg-gradient-to-br from-red-50 to-white p-6 rounded-2xl shadow-xl border border-red-100 relative group hover:-translate-y-1 transition-all flex items-center gap-4">
+                                <div class="w-16 h-16 bg-white rounded-full border border-red-200 p-2 flex-shrink-0 flex items-center justify-center">
+                                    <img src="https://ui-avatars.com/api/?name=NC&background=CC0000&color=fff&font-size=0.4" alt="NC State Logo" class="w-full h-full object-contain rounded-full">
+                                </div>
+                                <div class="flex-1">
+                                    <span class="inline-block px-2 py-0.5 bg-ncred text-white text-[10px] font-bold uppercase tracking-wider rounded mb-1">Current</span>
+                                    <br>
+                                    <span class="text-xs font-bold text-ncred uppercase tracking-wider block mb-1">Aug 2025 - Present</span>
+                                    <h3 class="text-xl font-bold text-gray-900 leading-tight">NC State University</h3>
+                                    <p class="text-gray-600 font-semibold text-sm">MS, Computer Engineering</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-2/12 h-10"></div>
+
+                        <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
+                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
+                                <h4 class="font-bold text-gray-900 mb-2">Advanced Studies</h4>
+                                <p>Specializing in Microarchitecture and Embedded Systems Architecture. Currently maintaining a <strong>4.0/4.0 GPA</strong>.</p>
+                                <div class="flex flex-wrap justify-end gap-2 mt-3">
+                                    <span class="px-2 py-1 bg-white border rounded text-xs">Microarchitecture</span>
+                                    <span class="px-2 py-1 bg-white border rounded text-xs">OS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END OF ROAD MARKER -->
+                <div class="absolute bottom-20 left-1/2 -translate-x-1/2 text-center">
+                    <div class="w-4 h-4 bg-ncred rounded-full mx-auto animate-ping"></div>
+                    <p class="text-sm font-bold text-gray-400 mt-2 tracking-widest uppercase">To Be Continued</p>
                 </div>
 
             </div>
@@ -175,221 +400,115 @@
     </section>
 
     <!-- Photo Gallery / Work Section -->
-    <section id="gallery" class="py-24 bg-white">
+    <section id="gallery" class="py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-end mb-16">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                 <div>
                     <h2 class="text-4xl md:text-5xl font-bold mb-4">Selected Work</h2>
-                    <p class="text-gray-500 text-lg">A visual collection of my engineering projects & experience.</p>
+                    <p class="text-gray-500 text-lg">A visual collection of my engineering projects.</p>
                 </div>
-                <!-- Simple Filters (Visual only for now) -->
-                <div class="hidden md:flex gap-2">
-                    <button class="px-4 py-2 bg-black text-white rounded-lg text-sm font-bold">All</button>
-                    <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-bold transition-colors">Embedded</button>
-                    <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-bold transition-colors">Architecture</button>
+                <!-- Filters -->
+                <div class="flex gap-2">
+                    <button class="px-5 py-2.5 bg-black text-white rounded-full text-sm font-bold shadow-lg transform active:scale-95 transition-all">All</button>
+                    <button class="px-5 py-2.5 bg-white hover:bg-gray-100 text-gray-600 rounded-full text-sm font-bold shadow-sm transition-all">Embedded</button>
+                    <button class="px-5 py-2.5 bg-white hover:bg-gray-100 text-gray-600 rounded-full text-sm font-bold shadow-sm transition-all">Architecture</button>
                 </div>
             </div>
 
             <!-- MASONRY GRID -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Item 1: Superscalar Pipeline (Large Card) -->
-                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer lg:col-span-2 h-96" onclick="openModal('modal-pipeline')">
-                    <!-- Placeholder Visual -->
+                <!-- Item 1: Superscalar -->
+                <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer lg:col-span-2 h-96 shadow-sm border border-gray-100" onclick="openModal('modal-pipeline')">
                     <div class="absolute inset-0 bg-gradient-4 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-30">
                         <i data-lucide="cpu" class="w-48 h-48 text-white"></i>
                     </div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 text-white">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">C++ Simulation</div>
-                        <h3 class="text-3xl font-bold mb-2">Superscalar Pipeline Simulator</h3>
-                        <p class="text-gray-200 line-clamp-2">Modeled an Out-of-Order processor with Reorder Buffer and Issue Queue to analyze instructions per cycle.</p>
-                        <div class="mt-4 flex items-center gap-2 text-sm font-bold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">
-                            Read Case Study <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    <div class="absolute bottom-0 left-0 p-8 text-white w-full">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">C++ Simulation</div>
+                                <h3 class="text-3xl font-bold mb-2">Superscalar Pipeline Simulator</h3>
+                                <p class="text-gray-200 line-clamp-1 opacity-80">Out-of-Order processor with ROB & Issue Queue.</p>
+                            </div>
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 2: Airbus Experience (Vertical Card) -->
-                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-96" onclick="openModal('modal-airbus')">
+                <!-- Item 2: Airbus -->
+                <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-96 shadow-sm border border-gray-100" onclick="openModal('modal-airbus')">
                     <div class="absolute inset-0 bg-blue-900 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
                      <div class="absolute inset-0 flex items-center justify-center opacity-20">
                         <i data-lucide="plane" class="w-32 h-32 text-white"></i>
                     </div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                    <div class="absolute bottom-0 left-0 p-8 text-white w-full">
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Experience</div>
-                        <h3 class="text-2xl font-bold mb-2">Airbus Engineer</h3>
-                        <p class="text-gray-300 text-sm">A320 Flight Warning Computer Firmware.</p>
+                        <h3 class="text-2xl font-bold mb-1">Airbus Engineer</h3>
+                        <p class="text-gray-300 text-sm">A320 Firmware.</p>
                     </div>
                 </div>
 
-                <!-- Item 3: Cache Simulator -->
-                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-80" onclick="openModal('modal-cache')">
+                <!-- Other items... -->
+                <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-80 shadow-sm border border-gray-100" onclick="openModal('modal-cache')">
                     <div class="absolute inset-0 bg-gradient-1 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
                      <div class="absolute inset-0 flex items-center justify-center opacity-20">
                         <i data-lucide="database" class="w-32 h-32 text-white"></i>
                     </div>
                     <div class="absolute bottom-0 left-0 p-8 text-white">
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Memory Systems</div>
-                        <h3 class="text-xl font-bold mb-1">Cache Hierarchy Sim</h3>
-                        <p class="text-white/80 text-sm">L1/L2 Cache optimization & prefetching.</p>
+                        <h3 class="text-xl font-bold">Cache Sim</h3>
                     </div>
                 </div>
 
-                <!-- Item 4: ML Modulation -->
-                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-80" onclick="openModal('modal-ml')">
+                <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-80 shadow-sm border border-gray-100" onclick="openModal('modal-ml')">
                     <div class="absolute inset-0 bg-gradient-3 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
                         <i data-lucide="activity" class="w-32 h-32 text-white"></i>
                     </div>
                     <div class="absolute bottom-0 left-0 p-8 text-white">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Machine Learning</div>
-                        <h3 class="text-xl font-bold mb-1">Adaptive Modulation</h3>
-                        <p class="text-white/80 text-sm">Deep Learning for signal classification.</p>
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">ML</div>
+                        <h3 class="text-xl font-bold">Adaptive Modulation</h3>
                     </div>
                 </div>
 
-                <!-- Item 5: Branch Predictor -->
-                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-80" onclick="openModal('modal-branch')">
+                <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-80 shadow-sm border border-gray-100" onclick="openModal('modal-branch')">
                     <div class="absolute inset-0 bg-gradient-2 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
                      <div class="absolute inset-0 flex items-center justify-center opacity-20">
                         <i data-lucide="git-branch" class="w-32 h-32 text-white"></i>
                     </div>
                     <div class="absolute bottom-0 left-0 p-8 text-white">
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">RISC-V</div>
-                        <h3 class="text-xl font-bold mb-1">Branch Predictor</h3>
-                        <p class="text-white/80 text-sm">Gshare & Hybrid architectures.</p>
+                        <h3 class="text-xl font-bold">Branch Predictor</h3>
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section (Visual Tags) -->
-    <section id="skills" class="py-20 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Technical Arsenal</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Langs -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-ncred mb-6">
-                        <i data-lucide="code-2"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Languages</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">C / C++</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Python</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">RISC-V</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Verilog</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Shell Scripting</span>
-                    </div>
-                </div>
-
-                <!-- Embedded -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-6">
-                        <i data-lucide="cpu"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Embedded & Arch</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">RTOS</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Lauterbach Trace32</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">GDB</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">GPU Programming</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Cache Coherency</span>
-                    </div>
-                </div>
-
-                <!-- Tools -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-6">
-                        <i data-lucide="wrench"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Dev Tools</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Jenkins CI/CD</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Git & Jira</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">MATLAB</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Linux Kernel</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education (Split Layout) -->
-    <section id="about" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row gap-16 items-center">
-                <div class="w-full md:w-1/2">
-                    <div class="relative">
-                        <!-- Education Image Placeholder -->
-                        <div class="aspect-[4/3] bg-gray-200 rounded-3xl overflow-hidden relative">
-                            <!-- You can replace this img src with a photo of NC State campus -->
-                            <img src="https://images.unsplash.com/photo-1592280771190-3e2e4d50c24f?auto=format&fit=crop&q=80&w=1000" alt="University" class="object-cover w-full h-full opacity-80 hover:scale-105 transition-transform duration-700">
-                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                             <div class="absolute bottom-6 left-6 text-white">
-                                <h4 class="text-2xl font-bold">NC State University</h4>
-                                <p>Raleigh, NC</p>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2">
-                    <h2 class="text-4xl font-bold mb-6">Education Journey</h2>
-                    
-                    <div class="space-y-8">
-                        <div class="pl-8 border-l-2 border-ncred relative">
-                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-ncred"></div>
-                            <h3 class="text-xl font-bold">Master of Science, Computer Engineering</h3>
-                            <p class="text-gray-500 mb-2">Aug 2025 - May 2027 • GPA: 4.0/4.0</p>
-                            <p class="text-gray-600">Specializing in Microarchitecture and Embedded Systems.</p>
-                        </div>
-
-                        <div class="pl-8 border-l-2 border-gray-200 relative">
-                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-300"></div>
-                            <h3 class="text-xl font-bold">Bachelor of Engineering, E&T</h3>
-                            <p class="text-gray-500 mb-2">Aug 2019 - Jun 2023</p>
-                            <p class="text-gray-600">RV College of Engineering, Bangalore.</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-100">
-                        <h4 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Current Coursework</h4>
-                        <p class="text-sm text-gray-600 leading-relaxed">
-                            Microprocessor Architecture, Embedded Systems Architecture, Operating Systems, Advanced Microarchitecture, Compiler Optimization.
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black text-white py-16">
+    <footer class="bg-black text-white py-24">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-8">Let's Build Something.</h2>
+            <h2 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight">Let's Build Something.</h2>
             <div class="flex justify-center gap-6 mb-12">
-                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred transition-colors">
-                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                <a href="#" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred hover:scale-110 transition-all">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
                 </a>
-                <a href="mailto:ananthadeekshith@gmail.com" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred transition-colors">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
+                <a href="mailto:ananthadeekshith@gmail.com" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred hover:scale-110 transition-all">
+                    <i data-lucide="mail" class="w-6 h-6"></i>
                 </a>
-                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred transition-colors">
-                    <i data-lucide="github" class="w-5 h-5"></i>
+                <a href="#" class="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred hover:scale-110 transition-all">
+                    <i data-lucide="github" class="w-6 h-6"></i>
                 </a>
             </div>
-            <p class="text-gray-500">© 2025 Deekshith Anantha. Built with Code.</p>
+            <p class="text-gray-500 font-mono text-sm">© 2025 Deekshith Anantha.</p>
         </div>
     </footer>
 
-    <!-- MODALS -->
-    <!-- Modal: Pipeline -->
+    <!-- MODALS (Hidden by default) -->
     <div id="modal-pipeline" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-pipeline')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl animate-fade-in-up">
@@ -402,15 +521,10 @@
                     <li>Modeled Fetch, Decode, Rename, Dispatch, Issue, Execute, Writeback, Retire stages.</li>
                     <li>Analyzed IPC by processing instruction trace files.</li>
                 </ul>
-                <div class="flex gap-2 mt-6">
-                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Architecture</span>
-                </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal: Airbus -->
+    
     <div id="modal-airbus" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-airbus')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
@@ -421,66 +535,36 @@
                 <ul class="list-disc pl-5 space-y-2 mb-4">
                     <li>Developed firmware for the A320 Flight Warning Computer using C/C++ and RTOS.</li>
                     <li>Hardware debugging using Lauterbach Trace32 and GDB.</li>
-                    <li>Built CI/CD pipelines in Jenkins, improving efficiency by 50%.</li>
-                    <li>Automated migration of 34 software components using Python.</li>
+                    <li>Built CI/CD pipelines in Jenkins.</li>
                 </ul>
-                <div class="flex gap-2 mt-6">
-                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">RTOS</span>
-                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Jenkins</span>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal: Cache -->
     <div id="modal-cache" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-cache')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
             <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-cache')"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-4">Cache & Memory Hierarchy Simulator</h3>
-            <div class="prose text-gray-600">
-                <p class="mb-4">Configurable simulator for L1/L2 cache hierarchies supporting adjustable size and associativity.</p>
-                <ul class="list-disc pl-5 space-y-2 mb-4">
-                    <li>Implemented stream buffer prefetching to model speculative access.</li>
-                    <li>Evaluated latency, bandwidth, and energy using CACTI models.</li>
-                    <li>Analyzed hit/miss rates and average access times.</li>
-                </ul>
-            </div>
+            <h3 class="text-2xl font-bold mb-4">Cache Simulator</h3>
+            <div class="prose text-gray-600"><p>L1/L2 Cache hierarchy simulation with CACTI analysis.</p></div>
         </div>
     </div>
 
-    <!-- Modal: ML -->
     <div id="modal-ml" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-ml')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
             <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-ml')"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-4">Adaptive Modulation using ML</h3>
-            <div class="prose text-gray-600">
-                <p class="mb-4">Designed a machine learning model to perform automatic modulation classification (AMC) on signals.</p>
-                <ul class="list-disc pl-5 space-y-2 mb-4">
-                    <li>Trained a Deep Neural Network (DNN) to predict QPSK, 16-QAM, 64-QAM schemes.</li>
-                    <li>Compared classification accuracy against CNN, LSTM, and PCA architectures.</li>
-                    <li>Tech Stack: Python, MATLAB, Jupyter, TensorFlow.</li>
-                </ul>
-            </div>
+            <h3 class="text-2xl font-bold mb-4">ML Modulation</h3>
+            <div class="prose text-gray-600"><p>Automatic Modulation Classification using Deep Learning.</p></div>
         </div>
     </div>
 
-    <!-- Modal: Branch -->
     <div id="modal-branch" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-branch')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
             <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-branch')"><i data-lucide="x"></i></button>
             <h3 class="text-2xl font-bold mb-4">RISC-V Branch Predictor</h3>
-            <div class="prose text-gray-600">
-                <p class="mb-4">Implemented a RISC-V branch prediction simulator supporting bimodal, gshare, and hybrid architectures.</p>
-                <ul class="list-disc pl-5 space-y-2 mb-4">
-                    <li>Modeled dynamic two-bit counter tables and chooser logic.</li>
-                    <li>Optimized runtime and validated against benchmark traces.</li>
-                    <li>Studied trade-offs in accuracy vs hardware complexity.</li>
-                </ul>
-            </div>
+            <div class="prose text-gray-600"><p>Gshare/Hybrid branch prediction simulation.</p></div>
         </div>
     </div>
 
@@ -499,7 +583,6 @@
             document.body.classList.remove('modal-open');
         }
 
-        // Close modal on escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 const modals = document.querySelectorAll('[id^="modal-"]');
@@ -511,35 +594,113 @@
                 });
             }
         });
-    </script>
 
-    <script>
-        // Initialize Icons
-        lucide.createIcons();
-
-        // HERO SLIDESHOW LOGIC
         document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('#hero-slideshow img');
+            
+            // --- CAR JOURNEY ANIMATION LOGIC ---
+            const journeySection = document.getElementById('journey');
+            const car = document.getElementById('car');
+            const path = document.getElementById('road-path');
+            const centerLine = document.getElementById('road-center-line');
+            const container = document.getElementById('road-container');
+            const stops = document.querySelectorAll('.timeline-stop');
+            
+            function drawRoad() {
+                if (!container || !path || !centerLine) return;
+                
+                const width = container.offsetWidth;
+                const height = 2200; 
+                
+                const centerX = width * 0.5;
+                const leftX = width * 0.45; 
+                const rightX = width * 0.55; 
+                
+                // Gentle Wave down center
+                const pathString = `
+                    M ${centerX} 0 
+                    C ${centerX} 100, ${leftX} 200, ${leftX} 400 
+                    C ${leftX} 600, ${rightX} 700, ${rightX} 900 
+                    C ${rightX} 1100, ${leftX} 1200, ${leftX} 1400 
+                    C ${leftX} 1600, ${rightX} 1700, ${rightX} 1900
+                    C ${rightX} 2100, ${centerX} 2150, ${centerX} 2200
+                `;
+                
+                path.setAttribute('d', pathString);
+                centerLine.setAttribute('d', pathString);
+            }
+            
+            drawRoad();
+            window.addEventListener('resize', drawRoad);
+            
+            if (path && car && journeySection) {
+                
+                window.addEventListener('scroll', () => {
+                    const sectionRect = journeySection.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    
+                    // Logic to keep car vertically centered in viewport
+                    // We map the "view center" to a point on the road
+                    
+                    // Where is the center of the viewport relative to the top of the road container?
+                    // roadContainer top relative to viewport is sectionRect.top + padding (approx 100px)
+                    // Let's assume the road starts near the top of the section
+                    const roadStartInViewport = sectionRect.top + 100; 
+                    const viewportCenter = windowHeight / 2;
+                    
+                    // How far down the road should we be?
+                    // We want the point on the road that is currently at the center of the screen
+                    let targetY = viewportCenter - roadStartInViewport;
+                    
+                    // Clamp to road boundaries
+                    targetY = Math.max(0, Math.min(2200, targetY));
+                    
+                    // We need to find the Point on the path where y approx equals targetY
+                    // Since the path moves downwards monotonically, we can approximate percent = targetY / height
+                    // This is good enough for our gentle curve
+                    const percent = targetY / 2200;
+                    
+                    const pathLength = path.getTotalLength();
+                    const point = path.getPointAtLength(percent * pathLength);
+                    
+                    // Calculate Rotation
+                    const lookAheadDist = Math.min(percent * pathLength + 50, pathLength);
+                    const lookAhead = path.getPointAtLength(lookAheadDist);
+                    const angle = Math.atan2(lookAhead.y - point.y, lookAhead.x - point.x) * 180 / Math.PI;
+                    
+                    // Center the car
+                    const carX = point.x - 24; 
+                    const carY = point.y - 40; 
+
+                    // Apply Transform
+                    car.style.transform = `translate(${carX}px, ${carY}px) rotate(${angle - 90}deg)`; 
+                    
+                    // Trigger Text Reveals
+                    stops.forEach(stop => {
+                        const stopTop = parseInt(stop.style.top);
+                        if (Math.abs(carY - stopTop) < 350) {
+                            stop.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            // --- HERO SLIDESHOW ---
+            const slides = document.querySelectorAll('#hero-slideshow .slide');
             const prevBtn = document.getElementById('prev-slide');
             const nextBtn = document.getElementById('next-slide');
             
             let currentSlide = 0;
             const totalSlides = slides.length;
-            const slideIntervalTime = 4000; // 4 seconds
             let slideInterval;
 
-            // Function to show a specific slide
             function showSlide(index) {
-                // Loop through all slides
                 slides.forEach((slide, i) => {
                     if (i === index) {
-                        slide.classList.remove('opacity-0');
-                        slide.classList.add('opacity-100');
-                        slide.style.zIndex = 2; // Bring current to front
+                        slide.classList.remove('opacity-0', 'z-0', 'scale-105');
+                        slide.classList.add('opacity-100', 'z-10', 'scale-100');
                     } else {
-                        slide.classList.remove('opacity-100');
-                        slide.classList.add('opacity-0');
-                        slide.style.zIndex = 1; // Send others to back
+                        slide.classList.remove('opacity-100', 'z-10', 'scale-100');
+                        slide.classList.add('opacity-0', 'z-0', 'scale-105');
                     }
                 });
             }
@@ -554,11 +715,9 @@
                 showSlide(currentSlide);
             }
 
-            // Timer Logic
             function startSlideTimer() {
-                // Clear any existing timer just in case
                 if (slideInterval) clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, slideIntervalTime);
+                slideInterval = setInterval(nextSlide, 6000);
             }
 
             function resetSlideTimer() {
@@ -566,22 +725,16 @@
                 startSlideTimer();
             }
 
-            // Initialize
             if (totalSlides > 0) {
-                // Ensure first slide is visible immediately
                 showSlide(0);
-                
-                // Start Timer
                 startSlideTimer();
 
-                // Next Button Click
                 nextBtn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent jumpy behavior
+                    e.preventDefault();
                     nextSlide();
                     resetSlideTimer();
                 });
 
-                // Prev Button Click
                 prevBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     prevSlide();
