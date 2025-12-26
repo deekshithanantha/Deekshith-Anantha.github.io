@@ -1,524 +1,524 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deekshith Anantha | Computer Engineering Student</title>
+    <title>Deekshith Anantha | Portfolio</title>
+    
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+
     <style>
+        /* Custom Animations & Styles */
+        :root {
+            --nc-red: #CC0000;
+            --deep-navy: #001122;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a192f;
-            color: #ccd6f6;
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
         }
-        .accent-color {
-            color: #64ffda;
+
+        h1, h2, h3, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
         }
-        .section-heading {
-            color: #ccd6f6;
+
+        /* Gradient Text Animation */
+        .animate-text {
+            background: linear-gradient(to right, #CC0000, #ff4d4d, #000000, #CC0000);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: animated_text 6s ease-in-out infinite;
         }
-        .card {
-            background-color: #112240;
-            border: 1px solid #1d2d50;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        @keyframes animated_text {
+            0% { background-position: 0px 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0px 50%; }
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+        /* Card Hover Effects */
+        .gallery-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .tag {
-            background-color: #163057;
-            color: #64ffda;
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        /* Ensure canvas is transparent */
-        #robotCanvas { /* Renamed to rocketCanvas in JS, but keeping ID for consistency for now */
-            background-color: transparent;
+
+        /* Staggered Fade In */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease-out forwards;
         }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dynamic Gradients for Placeholders */
+        .bg-gradient-1 { background: linear-gradient(135deg, #FF6B6B 0%, #556270 100%); } /* Warm/Tech */
+        .bg-gradient-2 { background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); } /* Green/Blue */
+        .bg-gradient-3 { background: linear-gradient(135deg, #e96443 0%, #904e95 100%); } /* Orange/Purple */
+        .bg-gradient-4 { background: linear-gradient(135deg, #000428 0%, #004e92 100%); } /* Deep Space */
+        
+        .modal-open { overflow: hidden; }
     </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ncred: '#CC0000',
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="leading-normal tracking-normal">
+<body class="antialiased selection:bg-ncred selection:text-white">
 
-    <!-- Header & Navigation -->
-    <header class="bg-opacity-90 backdrop-blur-md sticky top-0 z-50 shadow-lg" style="background-color: #0a192f;">
-        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a href="#" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
-                <span class="ml-3 text-2xl font-bold">Deekshith Anantha</span>
-            </a>
-            <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a href="#about" class="mr-5 hover:text-white transition-colors duration-300">About</a>
-                <a href="#experience" class="mr-5 hover:text-white transition-colors duration-300">Experience</a>
-                <a href="#projects" class="mr-5 hover:text-white transition-colors duration-300">Projects</a>
-                <a href="#skills" class="mr-5 hover:text-white transition-colors duration-300">Skills</a>
-                <a href="#contact" class="inline-flex items-center bg-transparent border border-cyan-400 text-cyan-400 py-1 px-3 focus:outline-none hover:bg-cyan-400 hover:text-gray-900 rounded-md text-base mt-4 md:mt-0 transition-colors duration-300">
-                    Contact
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                        <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-            </nav>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-2xl font-bold font-display tracking-tighter">DA.</div>
+                <div class="hidden md:flex space-x-8 text-sm font-semibold uppercase tracking-widest text-gray-500">
+                    <a href="#about" class="hover:text-ncred transition-colors">About</a>
+                    <a href="#gallery" class="hover:text-ncred transition-colors">Work Gallery</a>
+                    <a href="#skills" class="hover:text-ncred transition-colors">Skills</a>
+                    <a href="#contact" class="hover:text-ncred transition-colors">Contact</a>
+                </div>
+                <a href="#" class="px-5 py-2 bg-black text-white rounded-full text-sm font-bold hover:bg-ncred transition-colors">Resume</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 md:px-12 py-12">
+    <!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-ncred/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
 
-        <!-- Hero Section -->
-        <section id="hero" class="min-h-[70vh] flex flex-col md:flex-row items-center relative overflow-hidden">
-            <!-- Rocket Animation Container - Shifted to left -->
-            <div id="rocket-animation-container" class="order-2 md:order-1 w-full md:w-1/2 lg:w-2/5 h-full hidden md:flex items-center justify-center pointer-events-none relative">
-                <canvas id="rocketCanvas" class="w-full h-full"></canvas>
-            </div>
-
-            <div class="order-1 md:order-2 max-w-3xl z-10 md:ml-auto md:mr-0 md:text-right md:w-1/2 lg:w-3/5"> <!-- Shift text to right -->
-                <h1 class="text-lg md:text-xl accent-color font-mono mb-4">Hi, my name is</h1>
-                <h2 class="text-4xl md:text-7xl font-bold text-slate-200">Deekshith Anantha.</h2>
-                <h3 class="text-4xl md:text-6xl font-bold text-slate-400 mt-2">I build things for the web and the sky.</h3>
-                <p class="mt-6 max-w-xl text-lg text-slate-400 md:ml-auto">
-                    I'm a Computer Engineering graduate student at North Carolina State University with a passion for avionics, software development, and machine learning. I have hands-on experience in creating robust, efficient, and scalable software solutions.
-                </p>
-                <div class="mt-8 flex space-x-4 md:justify-end"> <!-- Align buttons to the right -->
-                    <a href="mailto:deekshithanantha@yahoo.com" class="accent-color border border-cyan-400 hover:bg-cyan-400 hover:text-gray-900 font-mono py-3 px-6 rounded-md transition-colors duration-300">Get In Touch</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Me Section -->
-        <section id="about" class="py-20">
-            <h2 class="text-3xl font-bold mb-8 relative inline-block">
-                <span class="accent-color font-mono text-2xl mr-2">01.</span>
-                <span class="section-heading">About Me</span>
-                <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
-                <div class="md:col-span-3 text-slate-400 text-lg space-y-4">
-                    <p>
-                        Hello! I'm Deekshith, a computer engineer driven by the challenge of solving complex problems. My journey began with a Bachelor's in Electronics and Telecommunication, which gave me a solid foundation in hardware-software interaction. This led me to an exciting role in the avionics industry, where I developed and optimized critical flight warning systems for new aircraft.
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <div class="text-center md:text-left order-2 md:order-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-ncred text-xs font-bold uppercase tracking-wider mb-6 fade-in" style="animation-delay: 0.1s">
+                        <span class="w-2 h-2 rounded-full bg-ncred animate-pulse"></span>
+                        Seeking 2026 Internships
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight fade-in" style="animation-delay: 0.2s">
+                        Hello, I'm <br>
+                        <span class="animate-text">Deekshith Anantha</span>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-gray-600 mb-10 font-light fade-in" style="animation-delay: 0.3s">
+                        Computer Engineering Graduate Student at <span class="font-bold text-ncred">NC State</span>. <br>
+                        Former Embedded Software Engineer at <span class="font-bold text-blue-900">Airbus</span>.
                     </p>
-                    <p>
-                        My experience involved everything from low-level software integration and requirement-based testing on real hardware to building high-level CI/CD pipelines and automation scripts that significantly boosted development efficiency. Now, as a Master's student at <span class="accent-color">NC State University</span>, I'm deepening my expertise in machine learning, distributed systems, and cloud computing.
-                    </p>
-                    <p>
-                        Outside of engineering, I have a creative side. I've led a theater team, directed street plays on important social issues, and coordinated large-scale cultural events. These experiences have honed my leadership, teamwork, and communication skills.
-                    </p>
-                </div>
-                <div class="md:col-span-2 flex justify-center">
-                    <div class="w-64 h-64 rounded-lg bg-slate-800 border-2 border-cyan-400 relative group overflow-hidden">
-                        <img src="Image\personal.JPG" alt="Deekshith's Photo" class="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-105">
-                        <!-- Removed mix-blend-screen and adjusted opacity for a clearer tint -->
-                        <div class="absolute inset-0 bg-cyan-400 opacity-0 group-hover:opacity-0 transition-opacity duration-300 rounded-md"></div>
+
+                    <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start fade-in" style="animation-delay: 0.4s">
+                        <a href="#gallery" class="px-8 py-4 bg-black text-white rounded-full font-bold hover:bg-gray-800 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                            <i data-lucide="grid"></i> View Projects
+                        </a>
+                        <a href="mailto:ananthadeekshith@gmail.com" class="px-8 py-4 bg-white text-black border-2 border-gray-100 rounded-full font-bold hover:border-ncred hover:text-ncred transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                            <i data-lucide="mail"></i> Get in Touch
+                        </a>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="py-20">
-            <h2 class="text-3xl font-bold mb-12 relative inline-block">
-                <span class="accent-color font-mono text-2xl mr-2">02.</span>
-                <span class="section-heading">Where I've Worked</span>
-                <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
-            </h2>
-            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-500 before:to-transparent">
-                <!-- Item 1 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-500 bg-slate-800 group-hover:border-cyan-400 text-slate-500 group-hover:text-cyan-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] card p-6 rounded-lg shadow-xl">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xl text-slate-200">Avionics Software Developer</h3>
-                            <time class="font-mono text-sm text-slate-400">2023 – 2025</time>
+                <div class="order-1 md:order-2 flex justify-center fade-in" style="animation-delay: 0.2s">
+                    <div class="relative w-64 h-64 md:w-96 md:h-96">
+                        <div class="absolute inset-0 border-2 border-dashed border-gray-200 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        
+                        <div id="hero-slideshow" class="absolute inset-2 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100 ease-in-out" alt="Deekshith Photo 1">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 ease-in-out" alt="Deekshith Photo 2">
+                            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0 ease-in-out" alt="Deekshith Photo 3">
                         </div>
-                        <p class="text-md accent-color mt-1">Full Time</p>
-                        <ul class="mt-4 list-disc list-inside text-slate-400 space-y-2">
-                            <li>Developed and integrated software components for flight warning systems in new aircraft.</li>
-                            <li>Optimized cockpit simulations using Python, boosting computational efficiency by 15%.</li>
-                            <li>Engineered a CI/CD pipeline with Jenkins, cutting build and deployment time by 50%.</li>
-                            <li>Automated component migration with Python & Shell, reducing manual effort by 80%.</li>
-                        </ul>
                     </div>
                 </div>
 
-                <!-- Item 2 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-slate-500 bg-slate-800 group-hover:border-cyan-400 text-slate-500 group-hover:text-cyan-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-all duration-300">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery / Work Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Selected Work</h2>
+                    <p class="text-gray-500 text-lg">A visual collection of my engineering projects & experience.</p>
+                </div>
+                <!-- Simple Filters (Visual only for now) -->
+                <div class="hidden md:flex gap-2">
+                    <button class="px-4 py-2 bg-black text-white rounded-lg text-sm font-bold">All</button>
+                    <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-bold transition-colors">Embedded</button>
+                    <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg text-sm font-bold transition-colors">Architecture</button>
+                </div>
+            </div>
+
+            <!-- MASONRY GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Item 1: Superscalar Pipeline (Large Card) -->
+                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer lg:col-span-2 h-96" onclick="openModal('modal-pipeline')">
+                    <!-- Placeholder Visual -->
+                    <div class="absolute inset-0 bg-gradient-4 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-30">
+                        <i data-lucide="cpu" class="w-48 h-48 text-white"></i>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] card p-6 rounded-lg shadow-xl">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xl text-slate-200">Engineering Intern</h3>
-                            <time class="font-mono text-sm text-slate-400">Mar – Jul 2023</time>
+                    
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">C++ Simulation</div>
+                        <h3 class="text-3xl font-bold mb-2">Superscalar Pipeline Simulator</h3>
+                        <p class="text-gray-200 line-clamp-2">Modeled an Out-of-Order processor with Reorder Buffer and Issue Queue to analyze instructions per cycle.</p>
+                        <div class="mt-4 flex items-center gap-2 text-sm font-bold opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">
+                            Read Case Study <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </div>
-                        <p class="text-md accent-color mt-1">Internship</p>
-                        <ul class="mt-4 list-disc list-inside text-slate-400 space-y-2">
-                            <li>Developed a DO-178C compliant automation tool using Python for change management.</li>
-                            <li>Gained hands-on experience in safety-critical software development standards.</li>
-                            <li>Implemented workflows that significantly improved team productivity.</li>
-                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 2: Airbus Experience (Vertical Card) -->
+                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-96" onclick="openModal('modal-airbus')">
+                    <div class="absolute inset-0 bg-blue-900 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                        <i data-lucide="plane" class="w-32 h-32 text-white"></i>
+                    </div>
+                    
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Experience</div>
+                        <h3 class="text-2xl font-bold mb-2">Airbus Engineer</h3>
+                        <p class="text-gray-300 text-sm">A320 Flight Warning Computer Firmware.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Cache Simulator -->
+                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-80" onclick="openModal('modal-cache')">
+                    <div class="absolute inset-0 bg-gradient-1 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                        <i data-lucide="database" class="w-32 h-32 text-white"></i>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Memory Systems</div>
+                        <h3 class="text-xl font-bold mb-1">Cache Hierarchy Sim</h3>
+                        <p class="text-white/80 text-sm">L1/L2 Cache optimization & prefetching.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: ML Modulation -->
+                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-80" onclick="openModal('modal-ml')">
+                    <div class="absolute inset-0 bg-gradient-3 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                        <i data-lucide="activity" class="w-32 h-32 text-white"></i>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Machine Learning</div>
+                        <h3 class="text-xl font-bold mb-1">Adaptive Modulation</h3>
+                        <p class="text-white/80 text-sm">Deep Learning for signal classification.</p>
+                    </div>
+                </div>
+
+                <!-- Item 5: Branch Predictor -->
+                <div class="gallery-card group relative bg-gray-50 rounded-3xl overflow-hidden cursor-pointer h-80" onclick="openModal('modal-branch')">
+                    <div class="absolute inset-0 bg-gradient-2 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
+                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                        <i data-lucide="git-branch" class="w-32 h-32 text-white"></i>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">RISC-V</div>
+                        <h3 class="text-xl font-bold mb-1">Branch Predictor</h3>
+                        <p class="text-white/80 text-sm">Gshare & Hybrid architectures.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section (Visual Tags) -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Technical Arsenal</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Langs -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-ncred mb-6">
+                        <i data-lucide="code-2"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">C / C++</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Python</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">RISC-V</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Verilog</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Shell Scripting</span>
+                    </div>
+                </div>
+
+                <!-- Embedded -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-6">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Embedded & Arch</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">RTOS</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Lauterbach Trace32</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">GDB</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">GPU Programming</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Cache Coherency</span>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-6">
+                        <i data-lucide="wrench"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Dev Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Jenkins CI/CD</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Git & Jira</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">MATLAB</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm font-medium">Linux Kernel</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <h2 class="text-3xl font-bold mb-8 relative inline-block">
-                <span class="accent-color font-mono text-2xl mr-2">03.</span>
-                <span class="section-heading">Things I've Built</span>
-                <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Project 1 -->
-                <div class="card p-6 rounded-lg flex flex-col">
-                    <div class="flex justify-between items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.08V8l-6-4-6 4v3.08"></path><path d="M17.88 21.12V18a6 6 0 0 0-12 0v3.12"></path><path d="M12 22.68V18"></path></svg>
-                        <!-- Add GitHub link when available -->
-                        <!-- <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a> -->
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-200 mb-2">Adaptive Modulation Detection with ML</h3>
-                    <p class="text-slate-400 mb-4 flex-grow">
-                        Successfully applied machine learning to identify modulation techniques in signals, analyzing performance based on SNR, throughput, and other factors.
-                    </p>
-                    <div class="flex flex-wrap font-mono text-sm mt-auto">
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Python</span>
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Machine Learning</span>
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Signal Processing</span>
+    <!-- Education (Split Layout) -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="w-full md:w-1/2">
+                    <div class="relative">
+                        <!-- Education Image Placeholder -->
+                        <div class="aspect-[4/3] bg-gray-200 rounded-3xl overflow-hidden relative">
+                            <!-- You can replace this img src with a photo of NC State campus -->
+                            <img src="https://images.unsplash.com/photo-1592280771190-3e2e4d50c24f?auto=format&fit=crop&q=80&w=1000" alt="University" class="object-cover w-full h-full opacity-80 hover:scale-105 transition-transform duration-700">
+                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                             <div class="absolute bottom-6 left-6 text-white">
+                                <h4 class="text-2xl font-bold">NC State University</h4>
+                                <p>Raleigh, NC</p>
+                             </div>
+                        </div>
                     </div>
                 </div>
-                <!-- Project 2 -->
-                <div class="card p-6 rounded-lg flex flex-col">
-                     <div class="flex justify-between items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                        <!-- <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a> -->
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-4xl font-bold mb-6">Education Journey</h2>
+                    
+                    <div class="space-y-8">
+                        <div class="pl-8 border-l-2 border-ncred relative">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-ncred"></div>
+                            <h3 class="text-xl font-bold">Master of Science, Computer Engineering</h3>
+                            <p class="text-gray-500 mb-2">Aug 2025 - May 2027 • GPA: 4.0/4.0</p>
+                            <p class="text-gray-600">Specializing in Microarchitecture and Embedded Systems.</p>
+                        </div>
+
+                        <div class="pl-8 border-l-2 border-gray-200 relative">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-300"></div>
+                            <h3 class="text-xl font-bold">Bachelor of Engineering, E&T</h3>
+                            <p class="text-gray-500 mb-2">Aug 2019 - Jun 2023</p>
+                            <p class="text-gray-600">RV College of Engineering, Bangalore.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-200 mb-2">Vulnerable GitHub Workflow Detection</h3>
-                    <p class="text-slate-400 mb-4 flex-grow">
-                        Utilized Machine Learning to detect and identify potential security vulnerabilities in GitHub Actions workflows by extracting and analyzing relevant features.
-                    </p>
-                    <div class="flex flex-wrap font-mono text-sm mt-auto">
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Python</span>
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">ML</span>
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Security</span>
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">GitHub Actions</span>
-                    </div>
-                </div>
-                <!-- Project 3 (Placeholder) -->
-                <div class="card p-6 rounded-lg flex flex-col opacity-60">
-                     <div class="flex justify-between items-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-200 mb-2">Your Next Project</h3>
-                    <p class="text-slate-400 mb-4 flex-grow">
-                        This space is ready for the next amazing project you'll build during your Master's program at NC State.
-                    </p>
-                    <div class="flex flex-wrap font-mono text-sm mt-auto">
-                        <span class="tag mr-2 mb-2 py-1 px-2 rounded-full">Coming Soon</span>
+
+                    <div class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-100">
+                        <h4 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4"></i> Current Coursework</h4>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Microprocessor Architecture, Embedded Systems Architecture, Operating Systems, Advanced Microarchitecture, Compiler Optimization.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-20 text-center">
-            <h2 class="text-3xl font-bold mb-8 relative inline-block">
-                <span class="accent-color font-mono text-2xl mr-2">04.</span>
-                <span class="section-heading">My Toolkit</span>
-                 <span class="absolute bottom-0 left-0 w-24 h-0.5 bg-slate-600 transform translate-y-2"></span>
-            </h2>
-            <div class="max-w-4xl mx-auto text-left">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-lg font-semibold accent-color mb-3">Languages & Databases</h3>
-                        <p class="text-slate-400">C, C++, Java, Python, JavaScript, SQL, MongoDB</p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold accent-color mb-3">DevOps & Cloud</h3>
-                        <p class="text-slate-400">Docker, Kubernetes, Jenkins, CI/CD, GCP, Git/GitHub</p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold accent-color mb-3">Web & Frameworks</h3>
-                        <p class="text-slate-400">ReactJS, Redux, Node.js (implied by JS)</p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold accent-color mb-3">Machine Learning & Data</h3>
-                        <p class="text-slate-400">Neural Networks, NLP, Generative AI, Hadoop, Apache Spark, Kafka</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-transparent text-center py-16 px-6">
-        <h2 class="text-4xl font-bold accent-color mb-4">Get In Touch</h2>
-        <p class="max-w-xl mx-auto text-slate-400 mb-8">
-            I'm currently seeking new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll do my best to get back to you!
-        </p>
-        <div class="flex justify-center space-x-6 mb-8">
-            <a href="mailto:deekshithanantha@yahoo.com" class="text-slate-400 hover:accent-color transition-colors duration-300" aria-label="Email">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            </a>
-            <!-- Replace with your actual LinkedIn URL -->
-            <a href="https://www.linkedin.com/in/deekshith-anantha-906b46199" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors duration-300" aria-label="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <!-- Replace with your actual GitHub URL -->
-            <a href="#" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:accent-color transition-colors duration-300" aria-label="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-            </a>
+    <footer class="bg-black text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Let's Build Something.</h2>
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred transition-colors">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="mailto:ananthadeekshith@gmail.com" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred transition-colors">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-ncred transition-colors">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+            </div>
+            <p class="text-gray-500">© 2025 Deekshith Anantha. Built with Code.</p>
         </div>
-        <p class="text-slate-500 text-sm">
-            Designed & Built by Deekshith Anantha
-        </p>
     </footer>
 
-    <!-- Three.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- MODALS -->
+    <!-- Modal: Pipeline -->
+    <div id="modal-pipeline" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-pipeline')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl animate-fade-in-up">
+            <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-pipeline')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4">Superscalar Pipeline Simulator</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Developed a cycle-accurate simulator for an out-of-order (OOO) superscalar processor to model dynamic instruction scheduling.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Implemented ROB, Issue Queue, and Rename Map Table.</li>
+                    <li>Modeled Fetch, Decode, Rename, Dispatch, Issue, Execute, Writeback, Retire stages.</li>
+                    <li>Analyzed IPC by processing instruction trace files.</li>
+                </ul>
+                <div class="flex gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Architecture</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Airbus -->
+    <div id="modal-airbus" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-airbus')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
+            <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-airbus')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4">Airbus - Embedded Engineer</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Aug 2019 - Jul 2025 (Includes Internship & Full-time)</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Developed firmware for the A320 Flight Warning Computer using C/C++ and RTOS.</li>
+                    <li>Hardware debugging using Lauterbach Trace32 and GDB.</li>
+                    <li>Built CI/CD pipelines in Jenkins, improving efficiency by 50%.</li>
+                    <li>Automated migration of 34 software components using Python.</li>
+                </ul>
+                <div class="flex gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">RTOS</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Jenkins</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Cache -->
+    <div id="modal-cache" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-cache')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
+            <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-cache')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4">Cache & Memory Hierarchy Simulator</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Configurable simulator for L1/L2 cache hierarchies supporting adjustable size and associativity.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Implemented stream buffer prefetching to model speculative access.</li>
+                    <li>Evaluated latency, bandwidth, and energy using CACTI models.</li>
+                    <li>Analyzed hit/miss rates and average access times.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: ML -->
+    <div id="modal-ml" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-ml')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
+            <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-ml')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4">Adaptive Modulation using ML</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Designed a machine learning model to perform automatic modulation classification (AMC) on signals.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Trained a Deep Neural Network (DNN) to predict QPSK, 16-QAM, 64-QAM schemes.</li>
+                    <li>Compared classification accuracy against CNN, LSTM, and PCA architectures.</li>
+                    <li>Tech Stack: Python, MATLAB, Jupyter, TensorFlow.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Branch -->
+    <div id="modal-branch" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-branch')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
+            <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-branch')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4">RISC-V Branch Predictor</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Implemented a RISC-V branch prediction simulator supporting bimodal, gshare, and hybrid architectures.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Modeled dynamic two-bit counter tables and chooser logic.</li>
+                    <li>Optimized runtime and validated against benchmark traces.</li>
+                    <li>Studied trade-offs in accuracy vs hardware complexity.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <script>
-        window.onload = function() {
-            const container = document.getElementById('rocket-animation-container');
-            const canvas = document.getElementById('rocketCanvas');
+        // Initialize Icons
+        lucide.createIcons();
 
-            // Exit if elements are not found
-            if (!container || !canvas) {
-                console.error("Rocket animation container or canvas not found.");
-                return;
-            }
+        // Modal Logic
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.body.classList.add('modal-open');
+        }
 
-            let scene, camera, renderer, rocket, exhaustFlame, particleSystem;
-            let launchProgress = 0; // 0 for pre-launch, 1 for launch, 2 for ascent, 3 for orbit
-            const LAUNCH_DURATION = 500; // Frames for initial lift-off
-            const ASCENT_DURATION = 1000; // Frames for main ascent
-            let animationFrameId; // To store the requestAnimationFrame ID
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }
 
-            function init() {
-                // Scene
-                scene = new THREE.Scene();
-
-                // Camera
-                camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-                camera.position.set(0, 2, 8); // Initial camera position, looking at the launchpad
-                camera.lookAt(0, 0, 0);
-
-                // Renderer
-                renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-                renderer.setSize(container.clientWidth, container.clientHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-
-                // Materials
-                const rocketBodyMaterial = new THREE.MeshStandardMaterial({ color: 0x7b3992, metalness: 0.7, roughness: 0.3 }); // Dark purple
-                const rocketAccentMaterial = new THREE.MeshStandardMaterial({ color: 0x64ffda, metalness: 0.8, roughness: 0.2 }); // Cyan accent
-                const flameMaterial = new THREE.MeshBasicMaterial({ color: 0xffa500, transparent: true, opacity: 0.8 }); // Orange flame
-
-                // --- Rocket Construction ---
-                rocket = new THREE.Group();
-                scene.add(rocket);
-
-                // Body
-                const bodyGeometry = new THREE.CylinderGeometry(0.8, 1.2, 5, 8); // Tapered body
-                const bodyMesh = new THREE.Mesh(bodyGeometry, rocketBodyMaterial);
-                rocket.add(bodyMesh);
-
-                // Nose Cone
-                const noseConeGeometry = new THREE.ConeGeometry(0.8, 2, 8);
-                const noseConeMesh = new THREE.Mesh(noseConeGeometry, rocketAccentMaterial);
-                noseConeMesh.position.y = 3.5; // Position above body
-                rocket.add(noseConeMesh);
-
-                // Fins
-                const finGeometry = new THREE.BoxGeometry(0.2, 2, 1.5);
-                const fin1 = new THREE.Mesh(finGeometry, rocketAccentMaterial);
-                fin1.position.set(0, -1.5, 1);
-                fin1.rotation.y = Math.PI / 4;
-                rocket.add(fin1);
-
-                const fin2 = new THREE.Mesh(finGeometry, rocketAccentMaterial);
-                fin2.position.set(0, -1.5, -1);
-                fin2.rotation.y = -Math.PI / 4;
-                rocket.add(fin2);
-
-                const fin3 = new THREE.Mesh(finGeometry, rocketAccentMaterial);
-                fin3.position.set(1, -1.5, 0);
-                fin3.rotation.y = Math.PI / 2;
-                rocket.add(fin3);
-
-                const fin4 = new THREE.Mesh(finGeometry, rocketAccentMaterial);
-                fin4.position.set(-1, -1.5, 0);
-                fin4.rotation.y = -Math.PI / 2;
-                rocket.add(fin4);
-
-                // Exhaust Flame (initially small/hidden)
-                const flameGeometry = new THREE.ConeGeometry(0.8, 2, 8);
-                exhaustFlame = new THREE.Mesh(flameGeometry, flameMaterial);
-                exhaustFlame.position.y = -3.5; // Below the rocket body
-                exhaustFlame.scale.set(0.1, 0.1, 0.1); // Start small
-                exhaustFlame.rotation.x = Math.PI; // Point upwards
-                rocket.add(exhaustFlame);
-
-                // Launchpad (simple base)
-                const launchpadGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 16);
-                const launchpadMaterial = new THREE.MeshStandardMaterial({ color: 0x5c6a7e, metalness: 0.3, roughness: 0.7 });
-                const launchpad = new THREE.Mesh(launchpadGeometry, launchpadMaterial);
-                launchpad.position.y = -3.75; // Below the rocket
-                scene.add(launchpad);
-
-                // Particle System for smoke/sparks
-                const particlesGeometry = new THREE.BufferGeometry();
-                const particlesCount = 500;
-                const posArray = new Float32Array(particlesCount * 3);
-                const colorArray = new Float32Array(particlesCount * 3);
-
-                const particleColors = [
-                    new THREE.Color(0xaaaaaa), // grey smoke
-                    new THREE.Color(0xcccccc), // lighter grey
-                    new THREE.Color(0xffffff), // white steam
-                    new THREE.Color(0xffa500), // orange sparks
-                    new THREE.Color(0xff4500)  // red sparks
-                ];
-
-                for (let i = 0; i < particlesCount * 3; i += 3) {
-                    posArray[i] = (Math.random() - 0.5) * 2; // x
-                    posArray[i + 1] = (Math.random() - 0.5) * 2; // y
-                    posArray[i + 2] = (Math.random() - 0.5) * 2; // z
-
-                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
-                    colorArray[i] = color.r;
-                    colorArray[i + 1] = color.g;
-                    colorArray[i + 2] = color.b;
-                }
-
-                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-                particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-
-                const particlesMaterial = new THREE.PointsMaterial({
-                    size: 0.1,
-                    vertexColors: true,
-                    transparent: true,
-                    blending: THREE.AdditiveBlending,
-                    sizeAttenuation: true
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const modals = document.querySelectorAll('[id^="modal-"]');
+                modals.forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                        document.body.classList.remove('modal-open');
+                    }
                 });
-
-                particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
-                particleSystem.position.y = -2.5; // Position below the rocket
-                scene.add(particleSystem);
-
-
-                // Lights
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-                scene.add(ambientLight);
-
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-                directionalLight.position.set(5, 10, 7);
-                scene.add(directionalLight);
             }
-
-            function animate() {
-                animationFrameId = requestAnimationFrame(animate);
-
-                const time = Date.now() * 0.001; // Time in seconds for smooth animation
-
-                // Rocket idle animation (before launch)
-                if (launchProgress < LAUNCH_DURATION) {
-                    rocket.position.y = Math.sin(time * 2) * 0.05; // Subtle bobbing
-                    exhaustFlame.scale.set(0.1 + Math.sin(time * 10) * 0.05, 0.1 + Math.sin(time * 10) * 0.05, 0.1 + Math.sin(time * 10) * 0.05); // Pulsating flame
-                    exhaustFlame.material.opacity = 0.5 + Math.sin(time * 5) * 0.2;
-
-                    // Particle system for pre-launch smoke
-                    particleSystem.position.y = -2.5 + Math.sin(time * 3) * 0.1;
-                    const positions = particleSystem.geometry.attributes.position.array;
-                    for (let i = 1; i < positions.length; i += 3) {
-                        positions[i] += 0.01; // Move particles upwards
-                        if (positions[i] > 1.5) positions[i] = -1.5; // Reset if too high
-                    }
-                    particleSystem.geometry.attributes.position.needsUpdate = true;
-
-                    launchProgress++;
-                }
-                // Launch Phase (Bachelor's to Avionics)
-                else if (launchProgress >= LAUNCH_DURATION && launchProgress < LAUNCH_DURATION + ASCENT_DURATION) {
-                    const progress = (launchProgress - LAUNCH_DURATION) / ASCENT_DURATION;
-                    rocket.position.y = -0.5 + progress * 10; // Ascend
-                    rocket.rotation.y += 0.01; // Gentle spin during ascent
-
-                    // Larger, more intense flame during launch
-                    exhaustFlame.scale.set(0.5 + Math.sin(time * 20) * 0.2, 0.5 + Math.sin(time * 20) * 0.2, 0.5 + Math.sin(time * 20) * 0.2);
-                    exhaustFlame.material.opacity = 0.8 + Math.sin(time * 10) * 0.1;
-                    exhaustFlame.material.color.setHex(0xff4500); // More reddish-orange
-
-                    // Particle system for exhaust
-                    const positions = particleSystem.geometry.attributes.position.array;
-                    for (let i = 1; i < positions.length; i += 3) {
-                        positions[i] += 0.05; // Move particles upwards faster
-                        if (positions[i] > 3) positions[i] = -2.5; // Reset if too high
-                    }
-                    particleSystem.geometry.attributes.position.needsUpdate = true;
-                    particleSystem.position.y = rocket.position.y - 2.5; // Follow rocket
-
-                    // Camera follows rocket slightly
-                    camera.position.y = 2 + progress * 5;
-                    camera.lookAt(0, rocket.position.y, 0);
-
-                    launchProgress++;
-                }
-                // Orbit/Continuous Learning Phase (Master's and beyond)
-                else {
-                    rocket.position.y = 9.5 + Math.sin(time * 0.5) * 0.2; // Settle at high altitude with subtle movement
-                    rocket.rotation.y += 0.005;
-
-                    // Subtle flame/exhaust for continuous operation
-                    exhaustFlame.scale.set(0.2 + Math.sin(time * 10) * 0.05, 0.2 + Math.sin(time * 10) * 0.05, 0.2 + Math.sin(time * 10) * 0.05);
-                    exhaustFlame.material.opacity = 0.6 + Math.sin(time * 5) * 0.1;
-                    exhaustFlame.material.color.setHex(0xffa500); // Back to orange
-
-                    // Particles become less dense and more spread out
-                    particleSystem.material.opacity = 0.3;
-                    const positions = particleSystem.geometry.attributes.position.array;
-                    for (let i = 1; i < positions.length; i += 3) {
-                        positions[i] += 0.02; // Slower upward movement
-                        if (positions[i] > 5) positions[i] = -3; // Reset if too high
-                    }
-                    particleSystem.geometry.attributes.position.needsUpdate = true;
-                    particleSystem.position.y = rocket.position.y - 2.5; // Follow rocket
-
-                    // Camera stays at higher altitude
-                    camera.position.y = 7;
-                    camera.lookAt(0, rocket.position.y, 0);
-                }
-
-                renderer.render(scene, camera);
-            }
-
-            // Handle window resize
-            function onWindowResize() {
-                // Only resize if the container is actually visible (md breakpoint and up)
-                if (window.innerWidth >= 768) {
-                    container.style.display = 'flex'; // Ensure it's visible if resized from small to large
-                    camera.aspect = container.clientWidth / container.clientHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(container.clientWidth, container.clientHeight);
-                } else {
-                    container.style.display = 'none'; // Hide on small screens
-                    if (animationFrameId) {
-                        cancelAnimationFrame(animationFrameId); // Stop animation loop
-                        animationFrameId = null;
-                    }
-                }
-            }
-
-            // Initial check and setup
-            if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
-                init();
-                animate();
-                window.addEventListener('resize', onWindowResize);
-            } else {
-                // If on a small screen, hide the container to save resources
-                container.style.display = 'none';
-            }
-        };
+        });
     </script>
+
+    <script>
+    // HERO SLIDESHOW LOGIC
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('#hero-slideshow img');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        // Only run if images exist
+        if (totalSlides > 0) {
+            setInterval(() => {
+                // Fade OUT current
+                slides[currentSlide].classList.remove('opacity-100');
+                slides[currentSlide].classList.add('opacity-0');
+
+                // Move to next
+                currentSlide = (currentSlide + 1) % totalSlides;
+
+                // Fade IN next
+                slides[currentSlide].classList.remove('opacity-0');
+                slides[currentSlide].classList.add('opacity-100');
+            }, 3000); // Change image every 3000ms (3 seconds)
+        }
+    });
+</script>
 </body>
 </html>
