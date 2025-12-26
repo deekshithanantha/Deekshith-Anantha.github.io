@@ -78,16 +78,22 @@
             pointer-events: none; /* Prevent clicks when hidden */
         }
         
-        .timeline-stop.active {
+        /* Active state (via scroll) OR Expanded state (via click) */
+        .timeline-stop.active, .timeline-stop.expanded {
             opacity: 1;
             filter: blur(0);
             transform: scale(1);
             pointer-events: auto;
         }
 
+        /* Ensure expanded items float above others */
+        .timeline-stop.expanded {
+            z-index: 50 !important;
+        }
+
         /* Car Shadow Pulse */
         .car-glow {
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 25px rgba(204, 0, 0, 0.2);
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.2));
         }
 
@@ -111,6 +117,40 @@
         .bg-gradient-4 { background: linear-gradient(135deg, #000428 0%, #004e92 100%); } 
         
         .modal-open { overflow: hidden; }
+
+        /* Custom Scrollbar for Internal Scroll */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #ccc; 
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #aaa; 
+        }
+        
+        /* Expand Animation */
+        .expand-content {
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .expand-content.open {
+            max-height: 500px; /* Arbitrary large height */
+            opacity: 1;
+        }
+        .chevron-icon {
+            transition: transform 0.3s ease;
+        }
+        .chevron-icon.rotate {
+            transform: rotate(180deg);
+        }
     </style>
     
     <script>
@@ -308,7 +348,7 @@
                 </div>
 
                 <!-- STOP 1: RV COLLEGE (Start - Top) - LEFT Layout -->
-                <div class="timeline-stop absolute w-full" style="top: 50px;">
+                <div class="timeline-stop absolute w-full" style="top: 50px;" id="stop-1">
                     <div class="flex flex-col md:flex-row items-center justify-between px-4 md:px-20 w-full">
                         <!-- Left: Overview & Logo -->
                         <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
@@ -330,20 +370,32 @@
 
                         <!-- Right: Detailed Description -->
                         <div class="w-full md:w-5/12 pl-8 md:pl-16 relative z-10">
-                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
-                                <h4 class="font-bold text-gray-900 mb-2">Bachelor of Engineering</h4>
-                                <p>Major in Electronics and Telecommunication. Built a strong foundation in embedded systems, digital signal processing, and computer architecture.</p>
-                                <ul class="list-disc pl-4 mt-2 space-y-1 text-xs">
-                                    <li>GPA: 7.9/10</li>
-                                    <li>Focus on Firmware & Hardware Integration</li>
-                                </ul>
+                            <div class="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-100 shadow-sm relative">
+                                <div class="prose prose-sm text-gray-600">
+                                    <h4 class="font-bold text-gray-900 mb-2">Bachelor of Engineering</h4>
+                                    <p>Major in Electronics and Telecommunication. Built a strong foundation in embedded systems, digital signal processing, and computer architecture.</p>
+                                    <ul class="list-disc pl-4 mt-2 space-y-1 text-xs">
+                                        <li>GPA: 7.9/10</li>
+                                        <li>Focus on Firmware & Hardware Integration</li>
+                                    </ul>
+                                </div>
+                                <!-- Expandable Section -->
+                                <div class="mt-4 pt-4 border-t border-gray-100 hidden expand-content">
+                                    <p class="text-xs text-gray-500 mb-2">Relevant coursework includes Digital Signal Processing, Embedded Systems, and more.</p>
+                                    <a href="#" class="text-ncred text-xs font-bold hover:underline flex items-center gap-1 justify-end">
+                                        View Transcript <i data-lucide="external-link" class="w-3 h-3"></i>
+                                    </a>
+                                </div>
+                                <button class="expand-btn w-full text-center mt-2 text-gray-400 hover:text-ncred transition-colors p-1" onclick="toggleExpand(this)">
+                                    <i data-lucide="chevron-down" class="w-4 h-4 mx-auto chevron-icon"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- STOP 2: AIRBUS INTERN (Middle) - RIGHT Layout -->
-                <div class="timeline-stop absolute w-full" style="top: 400px;">
+                <div class="timeline-stop absolute w-full" style="top: 400px;" id="stop-2">
                     <div class="flex flex-col md:flex-row-reverse items-center justify-between px-4 md:px-20 w-full">
                         <!-- Right: Overview & Logo -->
                         <div class="w-full md:w-5/12 text-left pl-8 md:pl-16 relative z-10">
@@ -364,17 +416,29 @@
 
                         <!-- Left: Description -->
                         <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
-                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
-                                <h4 class="font-bold text-gray-900 mb-2">Automation & Migration</h4>
-                                <p>Automated migration of 34 software components to the latest toolchain using Python and Shell scripting, reducing migration time by 80%.</p>
-                                <p class="mt-2 text-xs">Designed automation scripts to streamline firmware configuration under DO-178C guidelines.</p>
+                            <div class="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-100 shadow-sm relative">
+                                <div class="prose prose-sm text-gray-600">
+                                    <h4 class="font-bold text-gray-900 mb-2">Automation & Migration</h4>
+                                    <p>Automated migration of 34 software components to the latest toolchain using Python and Shell scripting, reducing migration time by 80%.</p>
+                                    <p class="mt-2 text-xs">Designed automation scripts to streamline firmware configuration under DO-178C guidelines.</p>
+                                </div>
+                                <!-- Expandable Section -->
+                                <div class="mt-4 pt-4 border-t border-gray-100 hidden expand-content">
+                                    <p class="text-xs text-gray-500 mb-2">Additional work involved enhancing cockpit simulation by optimizing signal processing.</p>
+                                    <a href="#" class="text-blue-600 text-xs font-bold hover:underline flex items-center gap-1 justify-end">
+                                        View Project Details <i data-lucide="external-link" class="w-3 h-3"></i>
+                                    </a>
+                                </div>
+                                <button class="expand-btn w-full text-center mt-2 text-gray-400 hover:text-blue-600 transition-colors p-1" onclick="toggleExpand(this)">
+                                    <i data-lucide="chevron-down" class="w-4 h-4 mx-auto chevron-icon"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- STOP 3: AIRBUS FULL TIME (Middle) - LEFT Layout -->
-                <div class="timeline-stop absolute w-full" style="top: 750px;">
+                <div class="timeline-stop absolute w-full" style="top: 750px;" id="stop-3">
                     <div class="flex flex-col md:flex-row items-center justify-between px-4 md:px-20 w-full">
                         <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
                             <div class="bg-white p-6 rounded-2xl shadow-xl border border-blue-100 relative group transition-all flex flex-row-reverse items-center gap-4">
@@ -392,21 +456,33 @@
                         <div class="w-full md:w-2/12 h-10"></div>
 
                         <div class="w-full md:w-5/12 pl-8 md:pl-16 relative z-10">
-                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
-                                <h4 class="font-bold text-gray-900 mb-2">Flight Warning Systems</h4>
-                                <p>Developed and optimized firmware for the A320 Flight Warning Computer using C/C++ and RTOS.</p>
-                                <ul class="list-disc pl-4 mt-2 space-y-1 text-xs">
-                                    <li>Hardware debugging with Lauterbach Trace32.</li>
-                                    <li>Improved CI/CD efficiency by 50% with Jenkins.</li>
-                                    <li>Collaborated with cross-functional hardware teams.</li>
-                                </ul>
+                            <div class="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-100 shadow-sm relative">
+                                <div class="prose prose-sm text-gray-600">
+                                    <h4 class="font-bold text-gray-900 mb-2">Flight Warning Systems</h4>
+                                    <p>Developed and optimized firmware for the A320 Flight Warning Computer using C/C++ and RTOS.</p>
+                                    <ul class="list-disc pl-4 mt-2 space-y-1 text-xs">
+                                        <li>Hardware debugging with Lauterbach Trace32.</li>
+                                        <li>Improved CI/CD efficiency by 50% with Jenkins.</li>
+                                        <li>Collaborated with cross-functional hardware teams.</li>
+                                    </ul>
+                                </div>
+                                <!-- Expandable Section -->
+                                <div class="mt-4 pt-4 border-t border-gray-100 hidden expand-content">
+                                    <p class="text-xs text-gray-500 mb-2">Deep dive into real-time system reliability and SoC-level data communication.</p>
+                                    <a href="#" class="text-blue-900 text-xs font-bold hover:underline flex items-center gap-1 justify-end">
+                                        See Recommendation <i data-lucide="external-link" class="w-3 h-3"></i>
+                                    </a>
+                                </div>
+                                <button class="expand-btn w-full text-center mt-2 text-gray-400 hover:text-blue-900 transition-colors p-1" onclick="toggleExpand(this)">
+                                    <i data-lucide="chevron-down" class="w-4 h-4 mx-auto chevron-icon"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- STOP 4: NC STATE (End - Bottom) - RIGHT Layout -->
-                <div class="timeline-stop absolute w-full" style="top: 1100px;">
+                <div class="timeline-stop absolute w-full" style="top: 1100px;" id="stop-4">
                     <div class="flex flex-col md:flex-row-reverse items-center justify-between px-4 md:px-20 w-full">
                         <div class="w-full md:w-5/12 text-left pl-8 md:pl-16 relative z-10">
                             <div class="bg-gradient-to-br from-red-50 to-white p-6 rounded-2xl shadow-xl border border-red-100 relative group transition-all flex items-center gap-4">
@@ -426,13 +502,25 @@
                         <div class="w-full md:w-2/12 h-10"></div>
 
                         <div class="w-full md:w-5/12 text-right pr-8 md:pr-16 relative z-10">
-                            <div class="prose prose-sm text-gray-600 bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-gray-100">
-                                <h4 class="font-bold text-gray-900 mb-2">Advanced Studies</h4>
-                                <p>Specializing in Microarchitecture and Embedded Systems Architecture. Currently maintaining a <strong>4.0/4.0 GPA</strong>.</p>
-                                <div class="flex flex-wrap justify-end gap-2 mt-3">
-                                    <span class="px-2 py-1 bg-white border rounded text-xs">Microarchitecture</span>
-                                    <span class="px-2 py-1 bg-white border rounded text-xs">OS</span>
+                            <div class="bg-white/80 backdrop-blur-md p-6 rounded-xl border border-gray-100 shadow-sm relative">
+                                <div class="prose prose-sm text-gray-600">
+                                    <h4 class="font-bold text-gray-900 mb-2">Advanced Studies</h4>
+                                    <p>Specializing in Microarchitecture and Embedded Systems Architecture. Currently maintaining a <strong>4.0/4.0 GPA</strong>.</p>
+                                    <div class="flex flex-wrap justify-end gap-2 mt-3">
+                                        <span class="px-2 py-1 bg-white border rounded text-xs">Microarchitecture</span>
+                                        <span class="px-2 py-1 bg-white border rounded text-xs">OS</span>
+                                    </div>
                                 </div>
+                                <!-- Expandable Section -->
+                                <div class="mt-4 pt-4 border-t border-gray-100 hidden expand-content">
+                                    <p class="text-xs text-gray-500 mb-2">Coursework: Advanced Microarchitecture, Compiler Optimization, Parallel Computers.</p>
+                                    <a href="#" class="text-ncred text-xs font-bold hover:underline flex items-center gap-1 justify-end">
+                                        Academic Profile <i data-lucide="external-link" class="w-3 h-3"></i>
+                                    </a>
+                                </div>
+                                <button class="expand-btn w-full text-center mt-2 text-gray-400 hover:text-ncred transition-colors p-1" onclick="toggleExpand(this)">
+                                    <i data-lucide="chevron-down" class="w-4 h-4 mx-auto chevron-icon"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -467,18 +555,18 @@
             <!-- MASONRY GRID -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Item 1: Superscalar -->
+                <!-- Item 1: Superscalar Pipeline -->
                 <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer lg:col-span-2 h-96 shadow-sm border border-gray-100" onclick="openModal('modal-pipeline')">
-                    <div class="absolute inset-0 bg-gradient-4 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-30">
-                        <i data-lucide="cpu" class="w-48 h-48 text-white"></i>
-                    </div>
+                    <!-- Image Placeholder -->
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="Superscalar Pipeline" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    
                     <div class="absolute bottom-0 left-0 p-8 text-white w-full">
                         <div class="flex justify-between items-end">
                             <div>
                                 <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">C++ Simulation</div>
                                 <h3 class="text-3xl font-bold mb-2">Superscalar Pipeline Simulator</h3>
-                                <p class="text-gray-200 line-clamp-1 opacity-80">Out-of-Order processor with ROB & Issue Queue.</p>
+                                <p class="text-gray-200 line-clamp-1 opacity-80">Cycle-accurate OOO processor with ROB, Issue Queue & Rename Map.</p>
                             </div>
                             <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all">
                                 <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
@@ -487,50 +575,55 @@
                     </div>
                 </div>
 
-                <!-- Item 2: Airbus -->
+                <!-- Item 2: Airbus (Work Experience Card) -->
                 <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-96 shadow-sm border border-gray-100" onclick="openModal('modal-airbus')">
-                    <div class="absolute inset-0 bg-blue-900 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
-                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
-                        <i data-lucide="plane" class="w-32 h-32 text-white"></i>
-                    </div>
+                    <!-- Image Placeholder -->
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800" alt="Airbus" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/40 to-transparent"></div>
+                    
                     <div class="absolute bottom-0 left-0 p-8 text-white w-full">
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Experience</div>
                         <h3 class="text-2xl font-bold mb-1">Airbus Engineer</h3>
-                        <p class="text-gray-300 text-sm">A320 Firmware.</p>
+                        <p class="text-gray-300 text-sm">A320 Firmware & CI/CD.</p>
                     </div>
                 </div>
 
-                <!-- Other items... -->
+                <!-- Item 3: Cache Simulator -->
                 <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-80 shadow-sm border border-gray-100" onclick="openModal('modal-cache')">
-                    <div class="absolute inset-0 bg-gradient-1 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
-                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
-                        <i data-lucide="database" class="w-32 h-32 text-white"></i>
-                    </div>
+                    <!-- Image Placeholder -->
+                    <img src="https://images.unsplash.com/photo-1558494949-ef253b33db48?auto=format&fit=crop&q=80&w=800" alt="Cache Sim" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                    
                     <div class="absolute bottom-0 left-0 p-8 text-white">
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Memory Systems</div>
-                        <h3 class="text-xl font-bold">Cache Sim</h3>
+                        <h3 class="text-xl font-bold">Cache & Memory Sim</h3>
+                        <p class="text-white/80 text-xs mt-1">Multi-level hierarchy with prefetching.</p>
                     </div>
                 </div>
 
+                <!-- Item 4: ML Modulation -->
                 <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-80 shadow-sm border border-gray-100" onclick="openModal('modal-ml')">
-                    <div class="absolute inset-0 bg-gradient-3 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
-                    <div class="absolute inset-0 flex items-center justify-center opacity-20">
-                        <i data-lucide="activity" class="w-32 h-32 text-white"></i>
-                    </div>
+                    <!-- Image Placeholder -->
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800" alt="ML" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-transparent to-transparent"></div>
+                    
                     <div class="absolute bottom-0 left-0 p-8 text-white">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">ML</div>
+                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Machine Learning</div>
                         <h3 class="text-xl font-bold">Adaptive Modulation</h3>
+                        <p class="text-white/80 text-xs mt-1">AMC using Deep Neural Networks.</p>
                     </div>
                 </div>
 
+                <!-- Item 5: Branch Predictor -->
                 <div class="gallery-card group relative bg-white rounded-[2rem] overflow-hidden cursor-pointer h-80 shadow-sm border border-gray-100" onclick="openModal('modal-branch')">
-                    <div class="absolute inset-0 bg-gradient-2 opacity-90 group-hover:scale-105 transition-transform duration-700"></div>
-                     <div class="absolute inset-0 flex items-center justify-center opacity-20">
-                        <i data-lucide="git-branch" class="w-32 h-32 text-white"></i>
-                    </div>
+                    <!-- Image Placeholder -->
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="RISC-V" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-transparent to-transparent"></div>
+                    
                     <div class="absolute bottom-0 left-0 p-8 text-white">
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">RISC-V</div>
                         <h3 class="text-xl font-bold">Branch Predictor</h3>
+                        <p class="text-white/80 text-xs mt-1">Gshare & Hybrid architectures.</p>
                     </div>
                 </div>
 
@@ -558,6 +651,7 @@
     </footer>
 
     <!-- MODALS (Hidden by default) -->
+    <!-- Modal: Pipeline -->
     <div id="modal-pipeline" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-pipeline')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl animate-fade-in-up">
@@ -566,14 +660,19 @@
             <div class="prose text-gray-600">
                 <p class="mb-4">Developed a cycle-accurate simulator for an out-of-order (OOO) superscalar processor to model dynamic instruction scheduling.</p>
                 <ul class="list-disc pl-5 space-y-2 mb-4">
-                    <li>Implemented ROB, Issue Queue, and Rename Map Table.</li>
-                    <li>Modeled Fetch, Decode, Rename, Dispatch, Issue, Execute, Writeback, Retire stages.</li>
-                    <li>Analyzed IPC by processing instruction trace files.</li>
+                    <li>Implemented core microarchitectural components essential for OOO execution, including a Reorder Buffer (ROB), a unified Issue Queue (IQ), and a Rename Map Table (RMT).</li>
+                    <li>Modeled the complete multi-stage pipeline (Fetch, Decode, Rename, Register Read, Dispatch, Issue, Execute, Writeback, and Retire) to resolve true data dependencies and structural hazards.</li>
+                    <li>Analyzed processor performance by processing instruction trace files to generate detailed cycle-by-cycle timing reports and calculate final metrics like Instructions Per Cycle (IPC).</li>
                 </ul>
+                <div class="flex gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Architecture</span>
+                </div>
             </div>
         </div>
     </div>
     
+    <!-- Modal: Airbus -->
     <div id="modal-airbus" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-airbus')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
@@ -582,38 +681,76 @@
             <div class="prose text-gray-600">
                 <p class="mb-4">Aug 2019 - Jul 2025 (Includes Internship & Full-time)</p>
                 <ul class="list-disc pl-5 space-y-2 mb-4">
-                    <li>Developed firmware for the A320 Flight Warning Computer using C/C++ and RTOS.</li>
-                    <li>Hardware debugging using Lauterbach Trace32 and GDB.</li>
-                    <li>Built CI/CD pipelines in Jenkins.</li>
+                    <li>Developed and optimized firmware for the Flight Warning Computer (A320 aircraft) using C/C++ and RTOS, demonstrating deep understanding of hardware-software integration and embedded system performance.</li>
+                    <li>Conducted requirement-based testing and real-time hardware debugging using Lauterbach Trace32 and GDB, mirroring post-silicon validation and hardware bring-up processes.</li>
+                    <li>Collaborated with cross-functional hardware and verification teams to ensure real-time system reliability and SoC-level data communication consistency.</li>
+                    <li>Engineered and maintained CI/CD pipelines in Jenkins, improving build and deployment efficiency by 50% through automated testing and system-level integration.</li>
                 </ul>
             </div>
         </div>
     </div>
 
+    <!-- Modal: Cache -->
     <div id="modal-cache" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-cache')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
             <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-cache')"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-4">Cache Simulator</h3>
-            <div class="prose text-gray-600"><p>L1/L2 Cache hierarchy simulation with CACTI analysis.</p></div>
+            <h3 class="text-2xl font-bold mb-4">Cache and Memory Hierarchy Simulator with Stream Buffer Prefetching</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Designed to model speculative data access and analyze performance metrics.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Developed a configurable simulator for multi-level cache hierarchies (L1, L2) supporting adjustable size, associativity, and block parameters.</li>
+                    <li>Implemented a stream buffer prefetching unit to model speculative data access and analyzed performance metrics such as hit/miss rates and average access time.</li>
+                    <li>Evaluated system-level trade-offs in latency, bandwidth, and energy using CACTI models, reinforcing concepts in performance modeling and firmware-level optimization.</li>
+                </ul>
+                <div class="flex gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">CACTI</span>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Modal: ML -->
     <div id="modal-ml" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-ml')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
             <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-ml')"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-4">ML Modulation</h3>
-            <div class="prose text-gray-600"><p>Automatic Modulation Classification using Deep Learning.</p></div>
+            <h3 class="text-2xl font-bold mb-4">Adaptive Modulation and Detection using Machine Learning</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Designed a machine learning model to perform automatic modulation classification (AMC) on signals using adaptive modulation techniques.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Developed and trained a deep neural network (DNN) to predict the modulation scheme (e.g., QPSK, 16-QAM, 64-QAM) of a received signal, overcoming the errors and quality loss of traditional demodulation.</li>
+                    <li>Utilized Python, MATLAB, and Jupyter Notebook to pre-process signal datasets, build the ML architecture, and train the model to minimize loss.</li>
+                    <li>Evaluated model performance by comparing its classification accuracy against other established architectures, including CNN, LSTM, and PCA.</li>
+                </ul>
+                <div class="flex gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Python</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">MATLAB</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">Deep Learning</span>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Modal: Branch -->
     <div id="modal-branch" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-branch')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-2xl rounded-2xl p-8 shadow-2xl">
             <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-branch')"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-4">RISC-V Branch Predictor</h3>
-            <div class="prose text-gray-600"><p>Gshare/Hybrid branch prediction simulation.</p></div>
+            <h3 class="text-2xl font-bold mb-4">Branch Predictor Simulator</h3>
+            <div class="prose text-gray-600">
+                <p class="mb-4">Designed and implemented a RISC-V branch prediction simulator in C++.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4">
+                    <li>Supported bimodal, gshare, and hybrid predictor architectures.</li>
+                    <li>Modeled dynamic two-bit counter tables and chooser logic to measure misprediction rates, accuracy, and pipeline efficiency across configurations.</li>
+                    <li>Optimized simulator runtime and validated against benchmark traces to study trade-offs in accuracy, hardware complexity, and pipeline performance.</li>
+                </ul>
+                <div class="flex gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">C++</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded-md text-sm font-bold">RISC-V</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -630,6 +767,29 @@
         function closeModal(id) {
             document.getElementById(id).classList.add('hidden');
             document.body.classList.remove('modal-open');
+        }
+
+        // Toggle Expand Function
+        function toggleExpand(btn) {
+            const content = btn.previousElementSibling;
+            const icon = btn.querySelector('.chevron-icon');
+            const stop = btn.closest('.timeline-stop');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                setTimeout(() => {
+                    content.classList.add('open');
+                    icon.classList.add('rotate');
+                    stop.classList.add('expanded');
+                }, 10);
+            } else {
+                content.classList.remove('open');
+                icon.classList.remove('rotate');
+                stop.classList.remove('expanded');
+                setTimeout(() => {
+                    content.classList.add('hidden');
+                }, 400); // Match transition duration
+            }
         }
 
         document.addEventListener('keydown', function(event) {
@@ -730,13 +890,15 @@
                     car.style.transform = `translate(${carX}px, ${carY}px) rotate(${angle - 90}deg)`; 
                     
                     // Trigger Text Reveals (Spotlight Effect)
+                    // Logic updated: If expanded, ignore scroll blur
                     stops.forEach(stop => {
+                        if (stop.classList.contains('expanded')) return; // Don't auto-hide expanded items
+
                         const stopTop = parseInt(stop.style.top);
                         // Make threshold tighter (e.g. 200px) so only one is active at a time
                         if (Math.abs(carY - stopTop) < 200) {
                             stop.classList.add('active');
                         } else {
-                            // Important: Remove active class when car moves away
                             stop.classList.remove('active');
                         }
                     });
