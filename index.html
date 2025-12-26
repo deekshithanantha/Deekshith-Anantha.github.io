@@ -13,6 +13,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         /* Custom Animations & Styles */
@@ -31,6 +32,10 @@
 
         h1, h2, h3, .font-display {
             font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'Fira Code', monospace;
         }
 
         /* Gradient Text Animation */
@@ -78,17 +83,11 @@
             pointer-events: none; /* Prevent clicks when hidden */
         }
         
-        /* Active state (via scroll) OR Expanded state (via click) */
-        .timeline-stop.active, .timeline-stop.expanded {
+        .timeline-stop.active {
             opacity: 1;
             filter: blur(0);
             transform: scale(1);
             pointer-events: auto;
-        }
-
-        /* Ensure expanded items float above others */
-        .timeline-stop.expanded {
-            z-index: 50 !important;
         }
 
         /* Car Shadow Pulse */
@@ -142,7 +141,7 @@
             overflow: hidden;
         }
         .expand-content.open {
-            max-height: 500px; /* Arbitrary large height */
+            max-height: 500px;
             opacity: 1;
         }
         .chevron-icon {
@@ -150,6 +149,15 @@
         }
         .chevron-icon.rotate {
             transform: rotate(180deg);
+        }
+
+        /* Skill Tag Hover */
+        .skill-tag {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-tag:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
     </style>
     
@@ -624,6 +632,109 @@
                         <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">RISC-V</div>
                         <h3 class="text-xl font-bold">Branch Predictor</h3>
                         <p class="text-white/80 text-xs mt-1">Gshare & Hybrid architectures.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SKILLS SECTION: "SKILL ORBIT" CARDS -->
+    <section id="skills" class="py-24 bg-white relative">
+        <div class="absolute inset-0 bg-gray-50/50 -skew-y-3 z-0 transform origin-top-left"></div>
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-ncred font-bold tracking-widest uppercase text-sm mb-2 block">My Stack</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900">Technical Arsenal</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- CARD 1: LANGUAGES -->
+                <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="code-2" class="w-6 h-6 text-orange-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800">Languages</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">C/C++</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">Python</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">GoLang</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">Ruby</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">JavaScript</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">SQL</span>
+                        <span class="skill-tag px-4 py-2 bg-orange-50 text-orange-700 text-sm font-semibold rounded-lg">Bash</span>
+                    </div>
+                </div>
+
+                <!-- CARD 2: EMBEDDED & SYSTEMS -->
+                <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-6 h-6 text-emerald-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800">Embedded & Systems</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">RTOS</span>
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">RISC-V</span>
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">Linux/Unix</span>
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">TCP/IP</span>
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">Wireshark</span>
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">Trace32</span>
+                        <span class="skill-tag px-4 py-2 bg-emerald-50 text-emerald-700 text-sm font-semibold rounded-lg">GDB</span>
+                    </div>
+                </div>
+
+                <!-- CARD 3: CLOUD & DEVOPS -->
+                <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cloud" class="w-6 h-6 text-blue-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800">Cloud & DevOps</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">AWS</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">GCP</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">Docker</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">Jenkins</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">CI/CD</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">DigitalOcean</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">Nginx</span>
+                        <span class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 text-sm font-semibold rounded-lg">Prometheus</span>
+                    </div>
+                </div>
+
+                <!-- CARD 4: WEB & DATA -->
+                <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="layout" class="w-6 h-6 text-purple-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800">Web & Data</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">React</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">NodeJS</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">Rails</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">GraphQL</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">MySQL</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">NoSQL</span>
+                        <span class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 text-sm font-semibold rounded-lg">Pandas</span>
+                    </div>
+                </div>
+
+                <!-- CARD 5: TOOLS & METHODS -->
+                <div class="md:col-span-2 bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wrench" class="w-6 h-6 text-gray-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-slate-800">Tools & Methodologies</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">Git</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">JIRA</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">Agile</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">SCRUM</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">TDD</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">Postman</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">Confluence</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">Selenium</span>
+                        <span class="skill-tag px-4 py-2 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg">Jupyter</span>
                     </div>
                 </div>
 
