@@ -216,10 +216,10 @@
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-ncred transition-all group-hover:w-full"></span>
                     </a>
                 </div>
-                <!-- Resume Button -->
-                <a href="#" class="px-6 py-2.5 bg-gradient-to-r from-ncred to-red-600 text-white rounded-full text-sm font-bold shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <!-- Resume Button with Modal Trigger -->
+                <button onclick="openModal('modal-resume')" class="px-6 py-2.5 bg-gradient-to-r from-ncred to-red-600 text-white rounded-full text-sm font-bold shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-105 transition-all duration-300 flex items-center gap-2">
                     <i data-lucide="file-down" class="w-4 h-4"></i> Resume
-                </a>
+                </button>
             </div>
         </div>
     </nav>
@@ -826,13 +826,13 @@
                 <!-- Use a flex column container to stack specific elements -->
                 <div class="flex flex-col gap-4 h-full">
                     
-                    <!-- RESUME HERO CARD (Takes up upper space) -->
-                    <a href="#" class="flex-1 bg-gradient-to-br from-ncred to-red-700 text-white rounded-3xl p-6 shadow-lg hover:shadow-red-500/30 transform hover:-translate-y-1 transition-all flex flex-col justify-center items-center text-center group relative overflow-hidden">
+                    <!-- RESUME HERO CARD (Takes up upper space) - Trigger Modal -->
+                    <button onclick="openModal('modal-resume')" class="flex-1 bg-gradient-to-br from-ncred to-red-700 text-white rounded-3xl p-6 shadow-lg hover:shadow-red-500/30 transform hover:-translate-y-1 transition-all flex flex-col justify-center items-center text-center group relative overflow-hidden w-full">
                         <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <i data-lucide="file-down" class="w-12 h-12 mb-4 group-hover:scale-110 transition-transform"></i>
                         <h3 class="text-2xl font-bold mb-1">Download Resume</h3>
                         <p class="text-white/80 text-sm">PDF Format • 2025 Updated</p>
-                    </a>
+                    </button>
 
                     <!-- SOCIAL ICONS ROW (Horizontal strip below) -->
                     <div class="grid grid-cols-5 gap-2">
@@ -890,6 +890,75 @@
     </footer>
 
     <!-- MODALS (Hidden by default) -->
+    
+    <!-- Modal: Resume Selection -->
+    <div id="modal-resume" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-resume')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-md rounded-2xl p-8 shadow-2xl animate-fade-in-up">
+            <button class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full" onclick="closeModal('modal-resume')"><i data-lucide="x"></i></button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-ncred">
+                    <i data-lucide="file-text" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900">Choose Resume Version</h3>
+                <p class="text-gray-500 text-sm mt-2">Select the tailored resume that fits your role.</p>
+            </div>
+
+            <div class="space-y-3">
+                <a href="#" class="block w-full p-4 text-left border border-gray-200 rounded-xl hover:border-ncred hover:bg-red-50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-gray-900">Software Developer</div>
+                            <div class="text-xs text-gray-500">Focus on C++, Python, Algorithms</div>
+                        </div>
+                        <i data-lucide="download" class="w-4 h-4 text-gray-400 group-hover:text-ncred"></i>
+                    </div>
+                </a>
+                
+                <a href="#" class="block w-full p-4 text-left border border-gray-200 rounded-xl hover:border-ncred hover:bg-red-50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-gray-900">Embedded Engineer</div>
+                            <div class="text-xs text-gray-500">Focus on RTOS, Firmware, Hardware</div>
+                        </div>
+                        <i data-lucide="download" class="w-4 h-4 text-gray-400 group-hover:text-ncred"></i>
+                    </div>
+                </a>
+
+                <a href="#" class="block w-full p-4 text-left border border-gray-200 rounded-xl hover:border-ncred hover:bg-red-50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-gray-900">Performance Architect</div>
+                            <div class="text-xs text-gray-500">Focus on Microarchitecture, Simulation</div>
+                        </div>
+                        <i data-lucide="download" class="w-4 h-4 text-gray-400 group-hover:text-ncred"></i>
+                    </div>
+                </a>
+
+                <a href="#" class="block w-full p-4 text-left border border-gray-200 rounded-xl hover:border-ncred hover:bg-red-50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-gray-900">Full Stack Developer</div>
+                            <div class="text-xs text-gray-500">Focus on Web, React, Node.js</div>
+                        </div>
+                        <i data-lucide="download" class="w-4 h-4 text-gray-400 group-hover:text-ncred"></i>
+                    </div>
+                </a>
+
+                <a href="#" class="block w-full p-4 text-left border border-gray-200 rounded-xl hover:border-ncred hover:bg-red-50 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="font-bold text-gray-900">Data Engineer</div>
+                            <div class="text-xs text-gray-500">Focus on ML, Pipelines, Big Data</div>
+                        </div>
+                        <i data-lucide="download" class="w-4 h-4 text-gray-400 group-hover:text-ncred"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal: Pipeline -->
     <div id="modal-pipeline" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal('modal-pipeline')"></div>
