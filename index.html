@@ -591,89 +591,176 @@
     </section>
 
     <!-- Photo Gallery / Work Section -->
-    <section id="gallery" class="py-24">
+    <section id="gallery" class="py-24 overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Selected Work</h2>
                 <p class="text-slate-400 text-lg">A visual collection of my engineering projects.</p>
             </div>
 
-            <!-- MASONRY GRID -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Item 1: Superscalar Pipeline -->
-                <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer lg:col-span-2 h-96 group relative" onclick="openModal('modal-pipeline')">
-                    <!-- Image Placeholder -->
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="Superscalar Pipeline" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            <!-- Project Slider Wrapper -->
+            <div class="relative overflow-hidden">
+                <div id="project-track" class="flex transition-transform duration-700 ease-in-out">
                     
-                    <div class="absolute bottom-0 left-0 p-8 text-white w-full">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">C++ Simulation</div>
-                                <h3 class="text-3xl font-bold mb-2">Superscalar Pipeline Simulator</h3>
-                                <p class="text-slate-300 line-clamp-1 opacity-80">Cycle-accurate OOO processor with ROB, Issue Queue & Rename Map.</p>
+                    <!-- SLIDE 1 (Existing Projects) -->
+                    <div class="w-full flex-shrink-0">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            
+                            <!-- Item 1: Superscalar Pipeline -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer lg:col-span-2 h-96 group relative" onclick="openModal('modal-pipeline')">
+                                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="Superscalar Pipeline" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white w-full">
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">C++ Simulation</div>
+                                            <h3 class="text-3xl font-bold mb-2">Superscalar Pipeline Simulator</h3>
+                                            <p class="text-slate-300 line-clamp-1 opacity-80">Cycle-accurate OOO processor with ROB, Issue Queue & Rename Map.</p>
+                                        </div>
+                                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all">
+                                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all">
-                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+
+                            <!-- Item 2: Airbus (Work Experience Card) -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-96 group relative" onclick="openModal('modal-airbus')">
+                                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800" alt="Airbus" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-900/40 to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white w-full">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Experience</div>
+                                    <h3 class="text-2xl font-bold mb-1">Airbus Engineer</h3>
+                                    <p class="text-slate-300 text-sm">A320 Firmware & CI/CD.</p>
+                                </div>
                             </div>
+
+                            <!-- Item 3: Cache Simulator -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-cache')">
+                                <img src="Image/logos/modal_pp.webp" onerror="this.src='https://images.unsplash.com/photo-1591405351990-4726e331f141?auto=format&fit=crop&q=80&w=800'" alt="Cache Sim" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Memory Systems</div>
+                                    <h3 class="text-xl font-bold">Cache & Memory Sim</h3>
+                                    <p class="text-slate-300 text-xs mt-1">Multi-level hierarchy with prefetching.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: ML Modulation -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-ml')">
+                                <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800" alt="ML" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Machine Learning</div>
+                                    <h3 class="text-xl font-bold">Adaptive Modulation</h3>
+                                    <p class="text-slate-300 text-xs mt-1">AMC using Deep Neural Networks.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Branch Predictor -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-branch')">
+                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="RISC-V" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">RISC-V</div>
+                                    <h3 class="text-xl font-bold">Branch Predictor</h3>
+                                    <p class="text-slate-300 text-xs mt-1">Gshare & Hybrid architectures.</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
 
-                <!-- Item 2: Airbus (Work Experience Card) -->
-                <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-96 group relative" onclick="openModal('modal-airbus')">
-                    <!-- Image Placeholder -->
-                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800" alt="Airbus" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-blue-900/40 to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 text-white w-full">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Experience</div>
-                        <h3 class="text-2xl font-bold mb-1">Airbus Engineer</h3>
-                        <p class="text-slate-300 text-sm">A320 Firmware & CI/CD.</p>
+                    <!-- SLIDE 2 (New Projects) -->
+                    <div class="w-full flex-shrink-0">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            
+                            <!-- Item 6: FPGA Accelerator (Large) -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer lg:col-span-2 h-96 group relative" onclick="openModal('modal-fpga')">
+                                <img src="https://images.unsplash.com/photo-1629813583273-03b134d19313?auto=format&fit=crop&q=80&w=800" alt="FPGA" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-indigo-950/90 via-indigo-900/40 to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white w-full">
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Verilog / Hardware</div>
+                                            <h3 class="text-3xl font-bold mb-2">Neural Net Accelerator on FPGA</h3>
+                                            <p class="text-slate-300 line-clamp-1 opacity-80">Hardware-accelerated inference engine using Xilinx Vivado.</p>
+                                        </div>
+                                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md group-hover:bg-white group-hover:text-black transition-all">
+                                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 7: RTOS Scheduler -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-96 group relative" onclick="openModal('modal-rtos')">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="RTOS" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Systems Software</div>
+                                    <h3 class="text-2xl font-bold mb-1">Custom RTOS Scheduler</h3>
+                                    <p class="text-slate-300 text-sm">Preemptive priority scheduling kernel.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 8: CUDA Ray Tracer -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-cuda')">
+                                <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=800" alt="CUDA" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-green-900/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">GPU Computing</div>
+                                    <h3 class="text-xl font-bold">Parallel Ray Tracer</h3>
+                                    <p class="text-slate-300 text-xs mt-1">Accelerated graphics rendering with CUDA.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 9: IoT Weather Station -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-iot')">
+                                <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&q=80&w=800" alt="IoT" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-cyan-900/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">IoT / Embedded</div>
+                                    <h3 class="text-xl font-bold">Smart Weather Hub</h3>
+                                    <p class="text-slate-300 text-xs mt-1">ESP32 based distributed sensor network.</p>
+                                </div>
+                            </div>
+
+                            <!-- Item 10: LLVM Pass -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-llvm')">
+                                <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800" alt="LLVM" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-red-900/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-8 text-white">
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Compilers</div>
+                                    <h3 class="text-xl font-bold">LLVM Optimization Pass</h3>
+                                    <p class="text-slate-300 text-xs mt-1">Custom backend optimization for RISC-V.</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
-                <!-- Item 3: Cache Simulator -->
-                <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-cache')">
-                    <!-- Image Placeholder -->
-                    <img src="Image/logos/modal_pp.webp" alt="Cache Sim" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 text-white">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Memory Systems</div>
-                        <h3 class="text-xl font-bold">Cache & Memory Sim</h3>
-                        <p class="text-slate-300 text-xs mt-1">Multi-level hierarchy with prefetching.</p>
-                    </div>
                 </div>
-
-                <!-- Item 4: ML Modulation -->
-                <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-ml')">
-                    <!-- Image Placeholder -->
-                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800" alt="ML" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-transparent to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 text-white">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Machine Learning</div>
-                        <h3 class="text-xl font-bold">Adaptive Modulation</h3>
-                        <p class="text-slate-300 text-xs mt-1">AMC using Deep Neural Networks.</p>
-                    </div>
-                </div>
-
-                <!-- Item 5: Branch Predictor -->
-                <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-branch')">
-                    <!-- Image Placeholder -->
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="RISC-V" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-transparent to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 text-white">
-                        <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">RISC-V</div>
-                        <h3 class="text-xl font-bold">Branch Predictor</h3>
-                        <p class="text-slate-300 text-xs mt-1">Gshare & Hybrid architectures.</p>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- Project Navigation Buttons -->
+            <div class="flex justify-center items-center gap-6 mt-12">
+                <button id="prev-projects" class="group flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed">
+                    <i data-lucide="arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"></i>
+                    <span class="font-bold text-sm uppercase tracking-wider">Previous</span>
+                </button>
+                
+                <div class="flex gap-2">
+                    <div id="dot-1" class="w-2 h-2 rounded-full bg-white transition-all"></div>
+                    <div id="dot-2" class="w-2 h-2 rounded-full bg-white/30 transition-all"></div>
+                </div>
+
+                <button id="next-projects" class="group flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed">
+                    <span class="font-bold text-sm uppercase tracking-wider">More Projects</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+
         </div>
     </section>
 
@@ -1060,6 +1147,91 @@
         </div>
     </div>
 
+    <!-- Modal: FPGA -->
+    <div id="modal-fpga" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-fpga')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-fpga')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">Neural Net Accelerator on FPGA</h3>
+            <div class="prose text-slate-300">
+                <p class="mb-4">Designed a custom hardware accelerator for neural network inference targeting Xilinx FPGAs.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-indigo-500">
+                    <li>Implemented Verilog modules for matrix multiplication and activation functions.</li>
+                    <li>Optimized data flow using systolic array architecture to maximize throughput.</li>
+                    <li>Achieved 4x performance improvement over software-based execution on embedded ARM cores.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: RTOS -->
+    <div id="modal-rtos" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-rtos')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-rtos')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">Custom RTOS Scheduler</h3>
+            <div class="prose text-slate-300">
+                <p class="mb-4">Built a lightweight real-time operating system kernel for ARM Cortex-M processors.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-slate-500">
+                    <li>Implemented preemptive priority scheduling and context switching logic in Assembly/C.</li>
+                    <li>Designed inter-process communication (IPC) mechanisms including semaphores and message queues.</li>
+                    <li>Optimized memory footprint for constrained embedded environments.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: CUDA -->
+    <div id="modal-cuda" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-cuda')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-cuda')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">Parallel Ray Tracer</h3>
+            <div class="prose text-slate-300">
+                <p class="mb-4">Developed a high-performance ray tracer utilizing GPU parallelism with CUDA.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-green-500">
+                    <li>Parallelized ray-object intersection calculations across thousands of CUDA threads.</li>
+                    <li>Implemented bounding volume hierarchies (BVH) to accelerate rendering of complex scenes.</li>
+                    <li>Reduced rendering time by 100x compared to a single-threaded CPU implementation.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: IoT -->
+    <div id="modal-iot" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-iot')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-iot')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">Smart Weather Hub</h3>
+            <div class="prose text-slate-300">
+                <p class="mb-4">Created a distributed sensor network for real-time environmental monitoring.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-cyan-500">
+                    <li>Programmed ESP32 microcontrollers to collect data from temp, humidity, and pressure sensors.</li>
+                    <li>Implemented MQTT protocol for reliable data transmission to a central cloud server.</li>
+                    <li>Designed a web dashboard for data visualization and historical analysis.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: LLVM -->
+    <div id="modal-llvm" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-llvm')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-llvm')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">LLVM Optimization Pass</h3>
+            <div class="prose text-slate-300">
+                <p class="mb-4">Developed a custom compiler optimization pass within the LLVM infrastructure.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-red-500">
+                    <li>Analyzed intermediate representation (IR) to identify redundant computations.</li>
+                    <li>Implemented dead code elimination and constant propagation algorithms.</li>
+                    <li>Targeted RISC-V backend to improve code density and execution speed.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Initialize Icons
         lucide.createIcons();
@@ -1130,8 +1302,52 @@
             }
         });
 
+        // --- PROJECT SLIDER LOGIC ---
         document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('project-track');
+            const prevBtn = document.getElementById('prev-projects');
+            const nextBtn = document.getElementById('next-projects');
+            const dot1 = document.getElementById('dot-1');
+            const dot2 = document.getElementById('dot-2');
             
+            let currentProjectSlide = 0;
+            const totalProjectSlides = 2; // We have 2 groups of projects
+
+            function updateProjectSlide() {
+                const translateX = -(currentProjectSlide * 100);
+                track.style.transform = `translateX(${translateX}%)`;
+                
+                // Update Button States
+                if (currentProjectSlide === 0) {
+                    prevBtn.disabled = true;
+                    nextBtn.disabled = false;
+                    dot1.classList.replace('bg-white/30', 'bg-white');
+                    dot2.classList.replace('bg-white', 'bg-white/30');
+                } else {
+                    prevBtn.disabled = false;
+                    nextBtn.disabled = true;
+                    dot1.classList.replace('bg-white', 'bg-white/30');
+                    dot2.classList.replace('bg-white/30', 'bg-white');
+                }
+            }
+
+            // Initial State
+            updateProjectSlide();
+
+            nextBtn.addEventListener('click', () => {
+                if (currentProjectSlide < totalProjectSlides - 1) {
+                    currentProjectSlide++;
+                    updateProjectSlide();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentProjectSlide > 0) {
+                    currentProjectSlide--;
+                    updateProjectSlide();
+                }
+            });
+
             // --- CAR JOURNEY ANIMATION LOGIC ---
             const journeySection = document.getElementById('journey');
             const car = document.getElementById('car');
@@ -1244,8 +1460,8 @@
 
             // --- HERO SLIDESHOW ---
             const slides = document.querySelectorAll('#hero-slideshow .slide');
-            const prevBtn = document.getElementById('prev-slide');
-            const nextBtn = document.getElementById('next-slide');
+            const prevBtnSlide = document.getElementById('prev-slide');
+            const nextBtnSlide = document.getElementById('next-slide');
             
             let currentSlide = 0;
             const totalSlides = slides.length;
@@ -1287,13 +1503,13 @@
                 showSlide(0);
                 startSlideTimer();
 
-                nextBtn.addEventListener('click', (e) => {
+                nextBtnSlide.addEventListener('click', (e) => {
                     e.preventDefault();
                     nextSlide();
                     resetSlideTimer();
                 });
 
-                prevBtn.addEventListener('click', (e) => {
+                prevBtnSlide.addEventListener('click', (e) => {
                     e.preventDefault();
                     prevSlide();
                     resetSlideTimer();
