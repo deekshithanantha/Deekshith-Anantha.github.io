@@ -726,14 +726,14 @@
                                 </div>
                             </div>
 
-                            <!-- Item 10: LLVM Pass -->
-                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-llvm')">
-                                <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800" alt="LLVM" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
-                                <div class="absolute inset-0 bg-gradient-to-t from-red-900/90 via-transparent to-transparent"></div>
+                            <!-- Item 10: FFT Calculator (Replaces LLVM Pass) -->
+                            <div class="glass-card rounded-[2rem] overflow-hidden cursor-pointer h-80 group relative" onclick="openModal('modal-fft')">
+                                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800" alt="FFT" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60">
+                                <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-transparent to-transparent"></div>
                                 <div class="absolute bottom-0 left-0 p-8 text-white">
-                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">Compilers</div>
-                                    <h3 class="text-xl font-bold">LLVM Optimization Pass</h3>
-                                    <p class="text-slate-300 text-xs mt-1">Custom backend optimization for RISC-V.</p>
+                                    <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-bold uppercase tracking-widest mb-3">DSP / Web App</div>
+                                    <h3 class="text-xl font-bold">Advanced FFT Calculator</h3>
+                                    <p class="text-slate-300 text-xs mt-1">Iterative Cooley-Tukey algorithm visualizer.</p>
                                 </div>
                             </div>
 
@@ -1215,19 +1215,48 @@
         </div>
     </div>
 
-    <!-- Modal: LLVM -->
-    <div id="modal-llvm" class="fixed inset-0 z-[60] hidden">
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-llvm')"></div>
+    <!-- Modal: FFT Calculator -->
+    <div id="modal-fft" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-fft')"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
-            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-llvm')"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-4 text-white">LLVM Optimization Pass</h3>
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-fft')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">Advanced FFT Calculator</h3>
             <div class="prose text-slate-300">
-                <p class="mb-4">Developed a custom compiler optimization pass within the LLVM infrastructure.</p>
-                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-red-500">
-                    <li>Analyzed intermediate representation (IR) to identify redundant computations.</li>
-                    <li>Implemented dead code elimination and constant propagation algorithms.</li>
-                    <li>Targeted RISC-V backend to improve code density and execution speed.</li>
+                <p class="mb-4">A web-based tool for calculating and visualizing the Fast Fourier Transform (DIT-FFT) and Inverse FFT.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-purple-500">
+                    <li><strong>Algorithm:</strong> Implements the Iterative Cooley-Tukey algorithm with bit-reversal permutation.</li>
+                    <li><strong>Visualization:</strong> Displays stage-by-stage butterfly operation results for N=4, 8, and 16 points.</li>
+                    <li><strong>Features:</strong> Complex number arithmetic class, dynamic table generation, and responsive dark-mode UI using Tailwind CSS.</li>
                 </ul>
+                <a href="fft.html" target="_blank" class="text-purple-400 text-xs font-bold hover:underline flex items-center gap-1 justify-end">
+                    View Project <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Portfolio -->
+    <div id="modal-portfolio" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal('modal-portfolio')"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-900 w-full max-w-2xl rounded-2xl p-8 shadow-2xl border border-white/10">
+            <button class="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full text-slate-400 hover:text-white" onclick="closeModal('modal-portfolio')"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-4 text-white">Interactive Portfolio Website</h3>
+            <div class="prose text-slate-300">
+                <p class="mb-4">Designed and built a modern, responsive portfolio website to showcase engineering projects and professional experience.</p>
+                <ul class="list-disc pl-5 space-y-2 mb-4 marker:text-ncred">
+                    <li><strong>Tech Stack:</strong> HTML5, Tailwind CSS, Vanilla JavaScript (No heavy frameworks).</li>
+                    <li><strong>Key Features:</strong>
+                        <ul class="list-disc pl-5 mt-1">
+                            <li>Custom SVG path animation that tracks user scroll ("The Journey").</li>
+                            <li>Interactive masonry grid with a custom slider mechanism.</li>
+                            <li>Glassmorphism UI design with dark mode optimization.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Performance:</strong> Optimized for fast load times using lightweight assets and efficient DOM manipulation.</li>
+                </ul>
+                <a href="#" class="text-red-400 text-xs font-bold hover:underline flex items-center gap-1 justify-end">
+                    View Source Code <i data-lucide="github" class="w-3 h-3"></i>
+                </a>
             </div>
         </div>
     </div>
