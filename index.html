@@ -425,7 +425,7 @@
                         <div class="w-full md:w-5/12 text-right pr-8 md:pr-12 relative z-10">
                             <div class="glass-card p-10 rounded-2xl relative group transition-all flex flex-row-reverse items-center gap-6 hover:border-red-500/30">                               
                                 <div class="w-24 h-24 bg-white/10 rounded-full border border-white/20 p-3 flex-shrink-0 flex items-center justify-center">
-                                    <img src="https://ui-avatars.com/api/?name=RV&background=333&color=fff&font-size=0.4" alt="RV Logo" class="w-full h-full object-contain rounded-full">
+                                    <img src="Image/logos/rvce_logo.png" alt="RV Logo" class="w-full h-full object-contain rounded-full">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="text-sm font-bold text-slate-500 uppercase tracking-wider block mb-2">Aug 2019 - Jun 2023</span>                                    
@@ -467,7 +467,7 @@
                         <div class="w-full md:w-5/12 text-left pl-8 md:pl-12 relative z-10">
                             <div class="glass-card p-10 rounded-2xl border border-blue-900/30 relative group transition-all flex items-center gap-6 hover:border-blue-500/50">
                                 <div class="w-24 h-24 bg-blue-900/20 rounded-full border border-blue-500/30 p-3 flex-shrink-0 flex items-center justify-center">
-                                    <img src="https://ui-avatars.com/api/?name=AB&background=00205b&color=fff&font-size=0.4" alt="Airbus Logo" class="w-full h-full object-contain rounded-full">
+                                    <img src="Image/logos/airbus_logo.png" alt="Airbus Logo" class="w-full h-full object-contain rounded-full">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="text-sm font-bold text-blue-400 uppercase tracking-wider block mb-2">Mar 2023 - Jul 2023</span>
@@ -505,7 +505,7 @@
                         <div class="w-full md:w-5/12 text-right pr-8 md:pr-12 relative z-10">
                             <div class="glass-card p-10 rounded-2xl border border-blue-900/30 relative group transition-all flex flex-row-reverse items-center gap-6 hover:border-blue-500/50">
                                 <div class="w-24 h-24 bg-blue-900/20 rounded-full border border-blue-500/30 p-3 flex-shrink-0 flex items-center justify-center">
-                                    <img src="https://ui-avatars.com/api/?name=AB&background=00205b&color=fff&font-size=0.4" alt="Airbus Logo" class="w-full h-full object-contain rounded-full">
+                                    <img src="Image/logos/airbus_logo.png" alt="Airbus Logo" class="w-full h-full object-contain rounded-full">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="text-sm font-bold text-blue-500 uppercase tracking-wider block mb-2">Jul 2023 - Jul 2025</span>
@@ -547,7 +547,7 @@
                         <div class="w-full md:w-5/12 text-left pl-8 md:pl-12 relative z-10">
                             <div class="glass-card p-10 rounded-2xl border border-red-500/20 relative group transition-all flex items-center gap-6 hover:border-red-500/50">
                                 <div class="w-24 h-24 bg-white/10 rounded-full border border-red-500/30 p-3 flex-shrink-0 flex items-center justify-center">
-                                    <img src="https://ui-avatars.com/api/?name=NC&background=CC0000&color=fff&font-size=0.4" alt="NC State Logo" class="w-full h-full object-contain rounded-full">
+                                    <img src="Image/logos/ncsu_logo.png" alt="NC State Logo" class="w-full h-full object-contain rounded-full">
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <span class="inline-block px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold uppercase tracking-wider rounded mb-1">Current</span>
@@ -1228,9 +1228,9 @@
 
                     // --- VEHICLE SWITCHING LOGIC ---
                     // Range check based on carY position
-                    if (carY < 250) {
+                    if (carY < 350) {
                         setVehicle('bus');
-                    } else if (carY >= 250 && carY < 950) {
+                    } else if (carY >= 350 && carY < 1280) {
                         setVehicle('plane');
                     } else {
                         setVehicle('car');
