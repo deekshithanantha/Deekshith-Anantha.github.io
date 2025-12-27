@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced FFT Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        .complex-input:focus-within {
+            box-shadow: 0 0 0 2px #3b82f6;
+            border-color: #3b82f6;
+        }
+        /* Fade in animation for dynamic content */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen font-sans selection:bg-blue-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-800 border-b border-gray-700 p-4 shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-wave-square text-blue-400 text-2xl"></i>
+                <h1 class="text-xl font-bold tracking-wide">FFT Calculator <span class="text-xs text-gray-400 font-normal ml-2">DIT-FFT & i-FFT</span></h1>
+            </div>
+            <div class="text-sm text-gray-400 hidden sm:block">
+                Supports 4, 8, 16 Points
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto p-4 md:p-6 grid gap-6">
+
+        <!-- Controls Section -->
+        <section class="bg-gray-800 rounded-xl border border-gray-700 p-6 shadow-xl flex flex-col md:flex-row gap-6 items-center justify-between">
+            <div class="flex items-center gap-4 w-full md:w-auto">
+                <div class="w-full">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Points (N)</label>
+                    <div class="flex bg-gray-900 p-1 rounded-lg border border-gray-700">
+                        <button onclick="setPoints(4)" id="btn-n4" class="flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all bg-blue-600 text-white shadow-md">4-pt</button>
+                        <button onclick="setPoints(8)" id="btn-n8" class="flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">8-pt</button>
+                        <button onclick="setPoints(16)" id="btn-n16" class="flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">16-pt</button>
+                    </div>
+                </div>
+                
+                <div class="w-full">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Mode</label>
+                    <div class="flex bg-gray-900 p-1 rounded-lg border border-gray-700">
+                        <button onclick="setMode('fft')" id="btn-fft" class="flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all bg-purple-600 text-white shadow-md">FFT</button>
+                        <button onclick="setMode('ifft')" id="btn-ifft" class="flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">i-FFT</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right hidden md:block">
+                <p class="text-sm text-gray-400">Algorithm</p>
+                <p class="text-blue-400 font-semibold">Iterative Cooley-Tukey</p>
+            </div>
+        </section>
+
+        <!-- Inputs Section -->
+        <section class="space-y-6">
+            <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-xl">
+                <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800/80 backdrop-blur">
+                    <h2 class="text-lg font-semibold text-gray-200">Input Sequence <span id="input-count-label" class="text-blue-400 text-sm ml-2">(4 points)</span></h2>
+                    <button onclick="clearInputs()" class="text-xs text-gray-400 hover:text-red-400 transition-colors flex items-center">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Clear Inputs
+                    </button>
+                </div>
+                
+                <div id="inputs-grid" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto custom-scroll">
+                    <!-- Dynamic Inputs will be injected here -->
+                </div>
+
+                <div class="p-6 border-t border-gray-700 bg-gray-800/50 flex justify-center">
+                    <button onclick="calculate()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-10 rounded-lg shadow-lg transform transition hover:-translate-y-0.5 active:translate-y-0 active:shadow-none flex items-center text-lg">
+                        <i class="fa-solid fa-bolt mr-2"></i> Calculate
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="hidden animate-fade-in">
+            <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-xl">
+                <div class="p-4 border-b border-gray-700 bg-gray-800/80 backdrop-blur">
+                    <h2 class="text-lg font-semibold text-green-400 flex items-center">
+                        <i class="fa-solid fa-chart-bar mr-2"></i> Stage-by-Stage Results
+                    </h2>
+                </div>
+                
+                <div class="p-0 overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead id="results-table-head">
+                            <!-- Dynamic Headers injected here -->
+                        </thead>
+                        <tbody id="results-table-body" class="divide-y divide-gray-700 text-sm font-mono">
+                            <!-- Results injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-8 py-6 text-center text-gray-600 text-sm border-t border-gray-800">
+        <p>Advanced FFT Calculator • Supports N=4, 8, 16</p>
+    </footer>
+
+    <script>
+        // --- State ---
+        let currentN = 4;
+        let currentMode = 'fft'; // 'fft' or 'ifft'
+
+        // --- Complex Number Class ---
+        class Complex {
+            constructor(r, i) {
+                this.r = parseFloat(r) || 0;
+                this.i = parseFloat(i) || 0;
+            }
+
+            add(c) {
+                return new Complex(this.r + c.r, this.i + c.i);
+            }
+
+            sub(c) {
+                return new Complex(this.r - c.r, this.i - c.i);
+            }
+
+            mult(c) {
+                return new Complex(
+                    this.r * c.r - this.i * c.i,
+                    this.r * c.i + this.i * c.r
+                );
+            }
+
+            scale(scalar) {
+                return new Complex(this.r * scalar, this.i * scalar);
+            }
+
+            magnitude() {
+                return Math.sqrt(this.r * this.r + this.i * this.i);
+            }
+
+            // Updated to match PDF style: (Real, Imag)
+            toString() {
+                // Rounding to 3 decimal places for cleaner table
+                let rStr = Math.abs(this.r) < 1e-6 ? "0" : Number(this.r.toFixed(3));
+                let iStr = Math.abs(this.i) < 1e-6 ? "0" : Number(this.i.toFixed(3));
+                return `(${rStr}, ${iStr})`;
+            }
+        }
+
+        // --- Initialization ---
+        window.onload = function() {
+            generateInputs();
+        };
+
+        // --- UI Logic ---
+        function setPoints(n) {
+            currentN = n;
+            
+            // Update buttons
+            [4, 8, 16].forEach(val => {
+                const btn = document.getElementById(`btn-n${val}`);
+                if (val === n) {
+                    btn.className = "flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all bg-blue-600 text-white shadow-md";
+                } else {
+                    btn.className = "flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white";
+                }
+            });
+
+            document.getElementById('input-count-label').innerText = `(${n} points)`;
+            generateInputs();
+            document.getElementById('results-section').classList.add('hidden');
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            const fftBtn = document.getElementById('btn-fft');
+            const ifftBtn = document.getElementById('btn-ifft');
+
+            if (mode === 'fft') {
+                fftBtn.className = "flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all bg-purple-600 text-white shadow-md";
+                ifftBtn.className = "flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white";
+            } else {
+                ifftBtn.className = "flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all bg-purple-600 text-white shadow-md";
+                fftBtn.className = "flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white";
+            }
+        }
+
+        function generateInputs() {
+            const container = document.getElementById('inputs-grid');
+            container.innerHTML = '';
+
+            for (let i = 0; i < currentN; i++) {
+                const div = document.createElement('div');
+                div.className = "complex-input bg-gray-900 p-3 rounded-lg border border-gray-700 animate-fade-in";
+                div.style.animationDelay = `${i * 0.05}s`;
+                div.innerHTML = `
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Input x[${i}]</label>
+                    <div class="flex space-x-2">
+                        <div class="relative flex-1">
+                            <input type="number" step="any" id="r${i}" placeholder="0" class="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-right focus:outline-none focus:border-blue-500 transition-colors placeholder-gray-600 text-white">
+                            <span class="absolute right-8 top-1 text-gray-500 text-xs pointer-events-none">Re</span>
+                        </div>
+                        <span class="text-gray-400 py-1">+</span>
+                        <div class="relative flex-1">
+                            <input type="number" step="any" id="i${i}" placeholder="0" class="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-right focus:outline-none focus:border-blue-500 transition-colors placeholder-gray-600 text-white">
+                            <span class="absolute right-6 top-1 text-gray-500 text-xs pointer-events-none">i</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        function clearInputs() {
+            for (let i = 0; i < currentN; i++) {
+                document.getElementById(`r${i}`).value = '';
+                document.getElementById(`i${i}`).value = '';
+            }
+            document.getElementById('results-section').classList.add('hidden');
+        }
+
+        // --- Core Algorithm: Iterative FFT with Stage Logging ---
+        // Helper: Bit Reversal
+        function bitReverse(n, bits) {
+            let reversed = 0;
+            for (let i = 0; i < bits; i++) {
+                reversed = (reversed << 1) | (n & 1);
+                n >>= 1;
+            }
+            return reversed;
+        }
+
+        function iterativeFFTWithStages(inputArray, isInverse) {
+            const n = inputArray.length;
+            const bits = Math.log2(n);
+            const stagesLog = []; // To store snapshot of array after each step
+            
+            // 0. Initial Inputs (Snapshot 0)
+            stagesLog.push([...inputArray]);
+
+            // 1. Bit Reversal
+            let a = new Array(n);
+            for (let i = 0; i < n; i++) {
+                a[bitReverse(i, bits)] = inputArray[i];
+            }
+            // Snapshot 1: Bit Reversed
+            stagesLog.push([...a]);
+
+            // 2. Butterfly Stages
+            // Loop for each stage (Stage 1, Stage 2, ...)
+            for (let s = 1; s <= bits; s++) {
+                const m = 1 << s; // Butterfly width (2, 4, 8...)
+                const m2 = m >> 1; // Half width
+                
+                // Twiddle Factor angle sign: -2pi for FFT, +2pi for iFFT
+                // Note: Standard FFT uses -2pi. 
+                const angleSign = isInverse ? 1 : -1;
+                
+                // Base Twiddle for this stage
+                // Wm = exp(j * angle)
+                const theta = (angleSign * 2 * Math.PI) / m;
+                const wm = new Complex(Math.cos(theta), Math.sin(theta));
+
+                // Process butterflies
+                for (let k = 0; k < n; k += m) {
+                    let w = new Complex(1, 0);
+                    for (let j = 0; j < m2; j++) {
+                        const t = w.mult(a[k + j + m2]);
+                        const u = a[k + j];
+                        
+                        a[k + j] = u.add(t);
+                        a[k + j + m2] = u.sub(t);
+                        
+                        w = w.mult(wm);
+                    }
+                }
+                
+                // Snapshot: End of Stage
+                // Note: We clone the array to keep a history
+                stagesLog.push([...a]);
+            }
+
+            return stagesLog;
+        }
+
+        function calculate() {
+            // 1. Gather Inputs
+            const inputData = [];
+            for (let i = 0; i < currentN; i++) {
+                const rVal = document.getElementById(`r${i}`).value;
+                const iVal = document.getElementById(`i${i}`).value;
+                const r = rVal === '' ? 0 : parseFloat(rVal);
+                const i_ = iVal === '' ? 0 : parseFloat(iVal);
+                inputData.push(new Complex(r, i_));
+            }
+
+            const isInverse = currentMode === 'ifft';
+
+            // 2. Perform Calculation (Get all stages)
+            let allStages = iterativeFFTWithStages(inputData, isInverse);
+
+            // 3. Post-Processing: Inverse Scaling
+            // The recursive algorithm usually returns the raw sum.
+            // For Inverse, we divide the FINAL stage by N.
+            if (isInverse) {
+                const finalStageIndex = allStages.length - 1;
+                allStages[finalStageIndex] = allStages[finalStageIndex].map(c => c.scale(1 / currentN));
+            }
+
+            // 4. Render Table Headers
+            const thead = document.getElementById('results-table-head');
+            let headerRow = `<tr class="bg-gray-900/50 text-xs text-gray-400 uppercase border-b border-gray-700">`;
+            
+            // Define column names based on logic
+            // Index 0: Input
+            // Index 1: Bit Rev
+            // Index 2...: Stage 1, Stage 2...
+            // Last Index: Output
+            
+            const numStages = allStages.length;
+            
+            headerRow += `<th class="p-4 font-semibold w-16">n</th>`;
+            headerRow += `<th class="p-4 font-semibold text-blue-300">Inputs</th>`; // Stage 0
+            headerRow += `<th class="p-4 font-semibold text-yellow-300">Bit Rev</th>`; // Stage 1
+            
+            for(let s = 2; s < numStages - 1; s++) {
+                // Determine stage letter like PDF (A, B, C...)
+                const stageChar = String.fromCharCode(65 + (s - 2)); // 0->A, 1->B
+                headerRow += `<th class="p-4 font-semibold text-purple-300">Stage ${stageChar}</th>`;
+            }
+            
+            headerRow += `<th class="p-4 font-semibold text-green-300">Final Output</th>`;
+            headerRow += `</tr>`;
+            thead.innerHTML = headerRow;
+
+            // 5. Render Table Body
+            const tbody = document.getElementById('results-table-body');
+            tbody.innerHTML = '';
+            
+            // We iterate through N rows (one for each index)
+            for(let i = 0; i < currentN; i++) {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-gray-800 transition-colors";
+                
+                let rowHtml = `<td class="p-4 border-b border-gray-700 font-bold text-gray-500">${i}</td>`;
+                
+                // Add columns for each stage
+                for(let s = 0; s < numStages; s++) {
+                    const val = allStages[s][i];
+                    
+                    // Highlight logic
+                    let textColor = "text-gray-300";
+                    if(s === 0) textColor = "text-blue-200";
+                    else if(s === 1) textColor = "text-yellow-200";
+                    else if(s === numStages - 1) textColor = "text-green-300 font-bold";
+                    else textColor = "text-purple-200";
+
+                    rowHtml += `<td class="p-4 border-b border-gray-700 ${textColor} font-mono whitespace-nowrap">${val.toString()}</td>`;
+                }
+
+                row.innerHTML = rowHtml;
+                tbody.appendChild(row);
+            }
+
+            document.getElementById('results-section').classList.remove('hidden');
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
