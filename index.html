@@ -22,16 +22,52 @@
         :root {
             --nc-red: #ef4444; /* Brighter red for dark mode */
             --glow: 0 0 20px rgba(239, 68, 68, 0.3);
+            --bg-base: #07111f;
+            --bg-deep: #030712;
+            --grid-major: rgba(148, 163, 184, 0.08);
+            --grid-minor: rgba(148, 163, 184, 0.035);
         }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #f8fafc;
-            /* The Seamless Gradient Background */
-            background: linear-gradient(180deg, #020617 0%, #0f172a 25%, #1e1b4b 50%, #171717 75%, #000000 100%);
+            background-color: var(--bg-base);
+            background-image:
+                radial-gradient(circle at 15% 12%, rgba(239, 68, 68, 0.14), transparent 0 22rem),
+                radial-gradient(circle at 82% 18%, rgba(59, 130, 246, 0.14), transparent 0 24rem),
+                radial-gradient(circle at 50% 72%, rgba(99, 102, 241, 0.1), transparent 0 28rem),
+                linear-gradient(180deg, #081121 0%, #0b1324 34%, #0d1530 58%, #09111f 80%, #04070f 100%);
             color: #e2e8f0;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::before {
+            background-image:
+                linear-gradient(var(--grid-major) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+                linear-gradient(var(--grid-minor) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+            background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+            background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+            mask-image: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.45) 60%, transparent 100%);
+            opacity: 0.78;
+        }
+
+        body::after {
+            background:
+                linear-gradient(180deg, rgba(2, 6, 23, 0.05), rgba(2, 6, 23, 0.32)),
+                radial-gradient(circle at center, transparent 0 55%, rgba(2, 6, 23, 0.28) 100%);
         }
 
         h1, h2, h3, .font-display {
@@ -60,16 +96,37 @@
 
         /* Glassmorphism Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.6));
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 45px -24px rgba(2, 6, 23, 0.9);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(180deg, rgba(17, 24, 39, 0.88), rgba(15, 23, 42, 0.72));
+            border-color: rgba(248, 113, 113, 0.18);
             transform: translateY(-4px);
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        section {
+            position: relative;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.015), transparent 18%, transparent 82%, rgba(2,6,23,0.1)),
+                radial-gradient(circle at top, rgba(255,255,255,0.03), transparent 45%);
+            opacity: 0.55;
+        }
+
+        section > * {
+            position: relative;
+            z-index: 1;
         }
 
         button.glass-card {
@@ -373,6 +430,17 @@
             .hero-controls button {
                 width: 2.75rem;
                 height: 2.75rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                background-attachment: scroll;
+            }
+
+            body::before {
+                opacity: 0.55;
+                background-size: 92px 92px, 92px 92px, 22px 22px, 22px 22px;
             }
         }
 
